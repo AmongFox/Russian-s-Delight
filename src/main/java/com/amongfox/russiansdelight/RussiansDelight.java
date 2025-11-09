@@ -1,5 +1,6 @@
 package com.amongfox.russiansdelight;
 
+import com.amongfox.russiansdelight.registry.BlocksRegistry;
 import com.amongfox.russiansdelight.registry.ItemGroupRegistry;
 import com.amongfox.russiansdelight.registry.ItemsRegistry;
 import net.fabricmc.api.ModInitializer;
@@ -28,6 +29,7 @@ public class RussiansDelight implements ModInitializer {
 //				.icon(() -> new ItemStack())
 				.build());
 
+		BlocksRegistry.registerAll();
 		ItemsRegistry.registerAll();
 		ItemGroupRegistry.registerItemGroups();
 

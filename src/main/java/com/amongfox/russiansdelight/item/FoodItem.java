@@ -1,13 +1,18 @@
 package com.amongfox.russiansdelight.item;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;
 
 import java.util.function.Supplier;
 
 public enum FoodItem {
-    BORSCHT(10, 0.8f, false);
+    BORSCHT(14, 12.8F, false),
+    SHCHI(13, 11.2F, false),
+    SOLYANKA(14, 13.5F, false),
+    RASSOLNIK(12, 10.5F, false),
+    OKROSHKA(10, 8.0F, false),
+
+    PANCAKES(10, 8.0F, false);
 
     private final Supplier<FoodComponent> food;
 

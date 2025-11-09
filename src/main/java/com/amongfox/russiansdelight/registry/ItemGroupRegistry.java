@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 public class ItemGroupRegistry {
     public static void registerItemGroups() {
         ItemGroupEvents.modifyEntriesEvent(RussiansDelight.MOD_ITEM_GROUP).register(entries -> {
-            for (ItemsRegistry item : ItemsRegistry.values()) {
+            for (ItemsRegistry item : ItemsRegistry.getItemsRegistryForCreativeTab()) {
                 entries.add(item.get());
             }
         });

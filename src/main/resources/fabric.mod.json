@@ -5,7 +5,7 @@
 	"name": "Russians Delight",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Me!"
+		"AmongFox"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -17,6 +17,9 @@
 	"entrypoints": {
 		"main": [
 			"com.amongfox.russiansdelight.RussiansDelight"
+		],
+		"client": [
+			"com.amongfox.russiansdelight.RussiansDelightClient"
 		]
 	},
 	"mixins": [
