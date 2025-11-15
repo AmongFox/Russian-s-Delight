@@ -26,7 +26,8 @@ public enum BlocksRegistry {
     RASSOLNIK_POT("rassolnik_pot", RassolnikPotBlock::new, true),
 
     // Выпечка
-    PANCAKES_TRAY("pancakes_tray", PancakesTrayBlock::new, true);
+    PANCAKES_TRAY("pancakes_tray", PancakesTrayBlock::new, true),
+    FISH_PIE("fish_pie", FishPieBlock::new, true);
 
     private final String pathName;
     private final Supplier<Block> blockSupplier;

@@ -1,6 +1,9 @@
 {
   "itemgroup.russiansdelight.group": "Русский восторг",
 
+  "item.russiansdelight.cucumber": "Огурец",
+  "item.russiansdelight.can_pickled_cucumbers": "Банка маринованных огурцов",
+
   "item.russiansdelight.bowl_of_borscht": "Борщ",
   "item.russiansdelight.bowl_of_shchi": "Щи",
   "item.russiansdelight.bowl_of_solyanka": "Солянка",
@@ -13,5 +16,6 @@
   "block.russiansdelight.solyanka_pot": "Кастрюля солянки",
   "block.russiansdelight.rassolnik_pot": "Кастрюля рассольника",
 
-  "block.russiansdelight.pancakes_tray": "Поднос с блинами"
+  "block.russiansdelight.pancakes_tray": "Поднос с блинами",
+  "block.russainsdelight.fish_pie": "Рыбный пирог"
 }

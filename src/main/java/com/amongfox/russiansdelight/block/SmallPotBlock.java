@@ -32,10 +32,7 @@ public class SmallPotBlock extends Block {
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 7.0, 14.0);
 
     public SmallPotBlock() {
-        super(FabricBlockSettings.copyOf(Blocks.BRICKS)
-                .strength(0.5f)
-                .sounds(BlockSoundGroup.ANVIL)
-                .nonOpaque());
+        super(FabricBlockSettings.copyOf(Blocks.BRICKS).strength(0.5F).sounds(BlockSoundGroup.ANVIL).nonOpaque());
     }
 
     @Nullable

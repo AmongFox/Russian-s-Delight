@@ -5,10 +5,15 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.shape.VoxelShape;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PancakesTrayBlock extends AbstractFoodBlock {
     private static final int MAX_SERVINGS = 6;
@@ -51,5 +56,12 @@ public class PancakesTrayBlock extends AbstractFoodBlock {
     @Override
     protected SoundEvent getBreakSoundEvent() {
         return SoundEvents.BLOCK_WOOD_BREAK;
+    }
+
+    @Override
+    protected List<ItemStack> getLeftoverDrops() {
+        List<ItemStack> drops = new ArrayList<>();
+        drops.add(new ItemStack(Items.BOWL, 1));
+        return drops;
     }
 }

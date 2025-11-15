@@ -5,10 +5,14 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.shape.VoxelShape;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BorschtPotBlock extends AbstractFoodBlock {
     private static final int MAX_SERVINGS = 6;
@@ -17,7 +21,6 @@ public class BorschtPotBlock extends AbstractFoodBlock {
     public BorschtPotBlock() {
         super(FabricBlockSettings.copyOf(Blocks.BRICKS).strength(0.5F).sounds(BlockSoundGroup.ANVIL).nonOpaque());
     }
-
 
     @Override
     protected int getMaxServings() {
@@ -52,5 +55,12 @@ public class BorschtPotBlock extends AbstractFoodBlock {
     @Override
     protected SoundEvent getBreakSoundEvent() {
         return SoundEvents.BLOCK_ANVIL_BREAK;
+    }
+
+    @Override
+    protected List<ItemStack> getLeftoverDrops() {
+        List<ItemStack> drops = new ArrayList<>();
+        drops.add(new ItemStack(ItemsRegistry.SMALL_POT.get(), 1));
+        return drops;
     }
 }

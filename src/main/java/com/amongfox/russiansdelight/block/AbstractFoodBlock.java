@@ -3,6 +3,7 @@ package com.amongfox.russiansdelight.block;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,6 +33,8 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public abstract class AbstractFoodBlock extends Block {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
@@ -52,6 +55,7 @@ public abstract class AbstractFoodBlock extends Block {
     protected abstract SoundEvent getTakeServingSoundEvent();
     protected abstract SoundEvent getAddServingSoundEvent();
     protected abstract SoundEvent getBreakSoundEvent();
+    protected abstract List<ItemStack> getLeftoverDrops();
 
     @Nullable
     @Override
@@ -81,13 +85,16 @@ public abstract class AbstractFoodBlock extends Block {
 
         ItemStack blockItem = new ItemStack(this);
 
-        if (servings != getMaxServings()) {
-            NbtCompound nbt = new NbtCompound();
-            nbt.putInt("servings", servings);
-            blockItem.setNbt(nbt);
+        if (!player.isCreative()) {
+            if (servings != getMaxServings()) {
+                NbtCompound nbt = new NbtCompound();
+                nbt.putInt("servings", servings);
+                blockItem.setNbt(nbt);
+            }
+
+            ItemScatterer.spawn(world, blockPos, DefaultedList.ofSize(1, blockItem));
         }
 
-        ItemScatterer.spawn(world, blockPos, DefaultedList.ofSize(1, blockItem));
         super.onBreak(world, blockPos, blockState, player);
     }
 
@@ -101,6 +108,7 @@ public abstract class AbstractFoodBlock extends Block {
         System.out.println("Servings: " + servings + "/" + getMaxServings());
         System.out.println("Held item: " + itemStack.getItem());
         System.out.println("Is client: " + world.isClient());
+        System.out.println("ItemStackIsEmpty: " + itemStack.isEmpty());
 
         if (canTakeServing(itemStack, servings)) {
             if (world.isClient()) return ActionResult.SUCCESS;
@@ -113,6 +121,10 @@ public abstract class AbstractFoodBlock extends Block {
         if (canEatDirectly(itemStack, servings)) {
             if (world.isClient()) return ActionResult.SUCCESS;
             return eatDirectly(world, blockPos, blockState, player, hand);
+        }
+        if (canPickupLeftovers(itemStack, servings)) {
+            if (world.isClient()) return ActionResult.SUCCESS;
+            return pickupLeftovers(world, blockPos, blockState, player, hand);
         }
 
         return ActionResult.PASS;
@@ -128,6 +140,9 @@ public abstract class AbstractFoodBlock extends Block {
 
     protected boolean canEatDirectly(ItemStack itemStack, int servings) {
         return getEatDirectly() && itemStack.isEmpty() && servings > 0;
+    }
+    private boolean canPickupLeftovers(ItemStack itemStack, int servings) {
+        return servings <= 0 && itemStack.isEmpty();
     }
 
     @Override
@@ -165,37 +180,31 @@ public abstract class AbstractFoodBlock extends Block {
     }
 
     public ActionResult takeServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
+        System.out.println("Call takeServing");
         int servings = blockState.get(getServingsProperty());
 
-        if (servings == 0) {
-           world.playSound(null, blockPos, getBreakSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
-           world.breakBlock(blockPos, false, player);
-           return ActionResult.SUCCESS;
-        }
+        ItemStack serving = getServingStack();
+        ItemStack itemStack = player.getStackInHand(hand);
 
-        if (servings > 0) {
-            ItemStack serving = getServingStack();
-            ItemStack itemStack = player.getStackInHand(hand);
+        if (itemStack.isOf(Items.BOWL)) {
+            world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
 
-            if (itemStack.isOf(Items.BOWL)) {
-                world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
+            world.playSound(null, blockPos, getTakeServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
 
-                world.playSound(null, blockPos, getTakeServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
-
-                if (!player.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                    if (!player.getInventory().insertStack(serving)) {
-                        player.dropItem(serving, false);
-                    }
+            if (!player.getAbilities().creativeMode) {
+                itemStack.decrement(1);
+                if (!player.getInventory().insertStack(serving)) {
+                    player.dropItem(serving, false);
                 }
-                return ActionResult.SUCCESS;
             }
+            return ActionResult.SUCCESS;
         }
 
         return ActionResult.PASS;
     }
 
     public ActionResult addServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
+        System.out.println("Call addServing");
         int servings = blockState.get(getServingsProperty());
 
         ItemStack heldItem = player.getStackInHand(hand);
@@ -219,24 +228,37 @@ public abstract class AbstractFoodBlock extends Block {
     }
 
     public ActionResult eatDirectly(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
+        System.out.println("Call eatDirectly");
         int servings = blockState.get(getServingsProperty());
 
-        if (servings > 0) {
-            ItemStack serving = getServingStack();
+        ItemStack serving = getServingStack();
 
-            if (player.canConsume(false)) {
-                world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
+        if (player.canConsume(false)) {
+            world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
 
-                world.playSound(null, blockPos, SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8F, 1.0F);
+            world.playSound(null, blockPos, SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8F, 1.0F);
 
-                player.getHungerManager().eat(serving.getItem(), serving);
+            player.getHungerManager().eat(serving.getItem(), serving);
 
-                player.swingHand(hand);
+            player.swingHand(hand);
 
-                return ActionResult.SUCCESS;
-            }
+            return ActionResult.SUCCESS;
         }
 
         return ActionResult.PASS;
+    }
+
+    public ActionResult pickupLeftovers(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
+        System.out.println("Call pickupLeftovers");
+        world.playSound(null, blockPos, getBreakSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
+        world.breakBlock(blockPos, false, player);
+
+        List<ItemStack> drops = getLeftoverDrops();
+
+        for (ItemStack stack : drops) {
+            ItemScatterer.spawn(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), stack);
+        }
+
+        return ActionResult.SUCCESS;
     }
 }
