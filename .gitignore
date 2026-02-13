@@ -1,10 +1,5 @@
 # gradle
 
-.gradle/
-build/
-out/
-classes/
-
 # eclipse
 
 *.launch

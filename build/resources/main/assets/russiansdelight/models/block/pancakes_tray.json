@@ -1,0 +1,153 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"particle": "russiansdelight:block/tray_top",
+		"tray_top": "russiansdelight:block/tray_top",
+		"tray_bottom": "russiansdelight:block/tray_bottom",
+		"pancake": "russiansdelight:block/pancake",
+		"pancake_top": "russiansdelight:block/pancake_top"
+	},
+	"elements": [
+		{
+			"name": "plate",
+			"from": [1, 0, 1],
+			"to": [15, 2, 15],
+			"faces": {
+				"north": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"east": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"south": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"west": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#tray_top"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#tray_bottom", "cullface": "down"}
+			}
+		},
+		{
+			"name": "p1",
+			"from": [3, 2, 3],
+			"to": [13, 2.8, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.9, 5, 7.75]},
+			"faces": {
+				"north": {"uv": [2, 14, 14, 15], "texture": "#pancake"},
+				"east": {"uv": [1, 2, 2, 14], "rotation": 90, "texture": "#pancake"},
+				"south": {"uv": [2, 1, 14, 2], "texture": "#pancake"},
+				"west": {"uv": [14, 2, 15, 14], "rotation": 90, "texture": "#pancake"},
+				"up": {"uv": [2, 2, 14, 14], "texture": "#pancake"},
+				"down": {"uv": [2, 2, 14, 14], "texture": "#pancake"}
+			}
+		},
+		{
+			"name": "p2",
+			"from": [2.65, 2.8, 3.35],
+			"to": [12.65, 3.6, 13.35],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.9, 5, 7.75]},
+			"faces": {
+				"north": {"uv": [14, 2, 15, 14], "rotation": 90, "texture": "#pancake"},
+				"east": {"uv": [2, 14, 14, 15], "texture": "#pancake"},
+				"south": {"uv": [1, 2, 2, 14], "rotation": 90, "texture": "#pancake"},
+				"west": {"uv": [2, 1, 14, 2], "texture": "#pancake"},
+				"up": {"uv": [2, 2, 14, 14], "rotation": 90, "texture": "#pancake"},
+				"down": {"uv": [2, 2, 14, 14], "rotation": 270, "texture": "#pancake"}
+			}
+		},
+		{
+			"name": "p3",
+			"from": [3, 3.6, 2.5],
+			"to": [13, 4.4, 12.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.9, 5, 7.75]},
+			"faces": {
+				"north": {"uv": [2, 14, 14, 15], "texture": "#pancake"},
+				"east": {"uv": [1, 2, 2, 14], "rotation": 90, "texture": "#pancake"},
+				"south": {"uv": [2, 1, 14, 2], "texture": "#pancake"},
+				"west": {"uv": [14, 2, 15, 14], "rotation": 90, "texture": "#pancake"},
+				"up": {"uv": [2, 2, 14, 14], "texture": "#pancake"},
+				"down": {"uv": [2, 2, 14, 14], "texture": "#pancake"}
+			}
+		},
+		{
+			"name": "p4",
+			"from": [2.8, 4.4, 2.5],
+			"to": [12.8, 5.2, 12.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.9, 5, 7.75]},
+			"faces": {
+				"north": {"uv": [2, 1, 14, 2], "texture": "#pancake"},
+				"east": {"uv": [14, 2, 15, 14], "rotation": 90, "texture": "#pancake"},
+				"south": {"uv": [2, 14, 14, 15], "texture": "#pancake"},
+				"west": {"uv": [1, 2, 2, 14], "rotation": 90, "texture": "#pancake"},
+				"up": {"uv": [2, 2, 14, 14], "rotation": 180, "texture": "#pancake"},
+				"down": {"uv": [2, 2, 14, 14], "rotation": 180, "texture": "#pancake"}
+			}
+		},
+		{
+			"name": "p5",
+			"from": [2.65, 5.2, 2.15],
+			"to": [12.65, 6, 12.15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.9, 5, 7.75]},
+			"faces": {
+				"north": {"uv": [14, 2, 15, 14], "rotation": 90, "texture": "#pancake"},
+				"east": {"uv": [2, 14, 14, 15], "texture": "#pancake"},
+				"south": {"uv": [1, 2, 2, 14], "rotation": 90, "texture": "#pancake"},
+				"west": {"uv": [2, 1, 14, 2], "texture": "#pancake"},
+				"up": {"uv": [2, 2, 14, 14], "rotation": 90, "texture": "#pancake"},
+				"down": {"uv": [2, 2, 14, 14], "rotation": 270, "texture": "#pancake"}
+			}
+		},
+		{
+			"name": "p6",
+			"from": [3.15, 6, 2.65],
+			"to": [13.15, 6.8, 12.65],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.9, 5, 7.75]},
+			"faces": {
+				"north": {"uv": [1, 2, 2, 14], "rotation": 90, "texture": "#pancake_top"},
+				"east": {"uv": [2, 1, 14, 2], "texture": "#pancake_top"},
+				"south": {"uv": [14, 2, 15, 14], "rotation": 90, "texture": "#pancake_top"},
+				"west": {"uv": [2, 14, 14, 15], "texture": "#pancake_top"},
+				"up": {"uv": [2, 2, 14, 14], "rotation": 270, "texture": "#pancake_top"},
+				"down": {"uv": [2, 2, 14, 14], "rotation": 90, "texture": "#pancake_top"}
+			}
+		},
+		{
+			"name": "pancake_top",
+			"from": [7.3, 6.8, 6.8],
+			"to": [9, 6.9, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 7]},
+			"faces": {
+				"north": {"uv": [7, 7, 8.7, 7.1], "texture": "#pancake_top"},
+				"east": {"uv": [7, 7, 8.7, 7.1], "texture": "#pancake_top"},
+				"south": {"uv": [7, 7, 8.7, 7.1], "texture": "#pancake_top"},
+				"west": {"uv": [7, 7, 8.7, 7.1], "texture": "#pancake_top"},
+				"up": {"uv": [7, 7, 9, 9], "texture": "#pancake_top"},
+				"down": {"uv": [0, 0, 0.7, 0.7], "texture": "#pancake_top"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "tray",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "plate",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [0]
+				}
+			]
+		},
+		{
+			"name": "pancakes",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [1, 2, 3, 4, 5, 6]
+		},
+		{
+			"name": "decals",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [7]
+		}
+	]
+}
