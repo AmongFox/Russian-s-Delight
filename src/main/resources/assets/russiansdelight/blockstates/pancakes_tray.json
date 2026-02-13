@@ -1,0 +1,115 @@
+{
+  "variants": {
+    "facing=north,servings=0": {
+      "model": "russiansdelight:block/pancakes_tray_serving_0"
+    },
+    "facing=east,servings=0": {
+      "model": "russiansdelight:block/pancakes_tray_serving_0",
+      "y": 90
+    },
+    "facing=south,servings=0": {
+      "model": "russiansdelight:block/pancakes_tray_serving_0",
+      "y": 180
+    },
+    "facing=west,servings=0": {
+      "model": "russiansdelight:block/pancakes_tray_serving_0",
+      "y": 270
+    },
+
+    "facing=north,servings=1": {
+      "model": "russiansdelight:block/pancakes_tray_serving_1"
+    },
+    "facing=east,servings=1": {
+      "model": "russiansdelight:block/pancakes_tray_serving_1",
+      "y": 90
+    },
+    "facing=south,servings=1": {
+      "model": "russiansdelight:block/pancakes_tray_serving_1",
+      "y": 180
+    },
+    "facing=west,servings=1": {
+      "model": "russiansdelight:block/pancakes_tray_serving_1",
+      "y": 270
+    },
+
+    "facing=north,servings=2": {
+      "model": "russiansdelight:block/pancakes_tray_serving_2"
+    },
+    "facing=east,servings=2": {
+      "model": "russiansdelight:block/pancakes_tray_serving_2",
+      "y": 90
+    },
+    "facing=south,servings=2": {
+      "model": "russiansdelight:block/pancakes_tray_serving_2",
+      "y": 180
+    },
+    "facing=west,servings=2": {
+      "model": "russiansdelight:block/pancakes_tray_serving_2",
+      "y": 270
+    },
+
+    "facing=north,servings=3": {
+      "model": "russiansdelight:block/pancakes_tray_serving_3"
+    },
+    "facing=east,servings=3": {
+      "model": "russiansdelight:block/pancakes_tray_serving_3",
+      "y": 90
+    },
+    "facing=south,servings=3": {
+      "model": "russiansdelight:block/pancakes_tray_serving_3",
+      "y": 180
+    },
+    "facing=west,servings=3": {
+      "model": "russiansdelight:block/pancakes_tray_serving_3",
+      "y": 270
+    },
+
+    "facing=north,servings=4": {
+      "model": "russiansdelight:block/pancakes_tray_serving_4"
+    },
+    "facing=east,servings=4": {
+      "model": "russiansdelight:block/pancakes_tray_serving_4",
+      "y": 90
+    },
+    "facing=south,servings=4": {
+      "model": "russiansdelight:block/pancakes_tray_serving_4",
+      "y": 180
+    },
+    "facing=west,servings=4": {
+      "model": "russiansdelight:block/pancakes_tray_serving_4",
+      "y": 270
+    },
+
+    "facing=north,servings=5": {
+      "model": "russiansdelight:block/pancakes_tray_serving_5"
+    },
+    "facing=east,servings=5": {
+      "model": "russiansdelight:block/pancakes_tray_serving_5",
+      "y": 90
+    },
+    "facing=south,servings=5": {
+      "model": "russiansdelight:block/pancakes_tray_serving_5",
+      "y": 180
+    },
+    "facing=west,servings=5": {
+      "model": "russiansdelight:block/pancakes_tray_serving_5",
+      "y": 270
+    },
+
+    "facing=north,servings=6": {
+      "model": "russiansdelight:block/pancakes_tray_serving_6"
+    },
+    "facing=east,servings=6": {
+      "model": "russiansdelight:block/pancakes_tray_serving_6",
+      "y": 90
+    },
+    "facing=south,servings=6": {
+      "model": "russiansdelight:block/pancakes_tray_serving_6",
+      "y": 180
+    },
+    "facing=west,servings=6": {
+      "model": "russiansdelight:block/pancakes_tray_serving_6",
+      "y": 270
+    }
+  }
+}
