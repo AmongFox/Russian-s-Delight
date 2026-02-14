@@ -1,12 +1,11 @@
 package com.amongfox.russiansdelight;
 
 import com.amongfox.russiansdelight.registry.BlocksRegistry;
-import net.minecraft.item.ItemStack;
 import com.amongfox.russiansdelight.registry.ItemGroupRegistry;
 import com.amongfox.russiansdelight.registry.ItemsRegistry;
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
