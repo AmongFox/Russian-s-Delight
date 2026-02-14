@@ -1,6 +1,7 @@
 package com.amongfox.russiansdelight;
 
 import com.amongfox.russiansdelight.registry.BlocksRegistry;
+import net.minecraft.item.ItemStack;
 import com.amongfox.russiansdelight.registry.ItemGroupRegistry;
 import com.amongfox.russiansdelight.registry.ItemsRegistry;
 import net.fabricmc.api.ModInitializer;
@@ -26,7 +27,7 @@ public class RussiansDelight implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 		Registry.register(Registries.ITEM_GROUP, MOD_ITEM_GROUP, FabricItemGroup.builder()
 				.displayName(Text.translatable("itemgroup.russiansdelight.group"))
-//				.icon(() -> new ItemStack())
+				.icon(() -> new ItemStack(ItemsRegistry.BORSCHT.get()))
 				.build());
 
 		BlocksRegistry.registerAll();
