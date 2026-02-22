@@ -17,8 +17,10 @@ public enum FoodItem {
     OKROSHKA(10, 8.0F, false),
 
     // Выпечка
+    CABBAGE_PIE(6,7,false),
     PANCAKES(10, 8.0F, false),
-    PIECE_FISH_PIE(8, 9.5F, false);
+    PIECE_FISH_PIE(8, 9.5F, false),
+    PIECE_CABBAGE_PIE(6, 7.0F, false);
 
     private final Supplier<FoodComponent> food;
 

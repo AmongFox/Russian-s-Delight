@@ -1,0 +1,106 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"particle": "russiansdelight:block/tray_top",
+		"tray_top": "russiansdelight:block/tray_top",
+		"tray_bottom": "russiansdelight:block/tray_bottom",
+		"pie": "russiansdelight:block/cabbage_pie_texture",
+		"leaf": "russiansdelight:block/cabbage_leaf_texture"
+	},
+	"elements": [
+		{
+			"name": "plate",
+			"from": [1, 0, 1],
+			"to": [15, 2, 15],
+			"faces": {
+				"north": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"east": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"south": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"west": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#tray_top"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#tray_bottom", "cullface": "down"}
+			}
+		},
+		{
+			"name": "pie",
+			"from": [2, 2, 4],
+			"to": [9, 4, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 0]},
+			"faces": {
+				"north": {"uv": [3, 5, 5, 12], "rotation": 90, "texture": "#pie"},
+				"east": {"uv": [1, 10, 5, 12], "texture": "#pie"},
+				"south": {"uv": [1, 5, 3, 12], "rotation": 90, "texture": "#pie"},
+				"west": {"uv": [1, 1, 5, 3], "texture": "#pie"},
+				"up": {"uv": [5, 10, 1, 3], "rotation": 90, "texture": "#pie"},
+				"down": {"uv": [0, 0, 1, 1], "rotation": 90, "texture": "#pie"}
+			}
+		},
+		{
+			"name": "pie",
+			"from": [10, 2, 6],
+			"to": [14, 4, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13.5, 3, 8]},
+			"faces": {
+				"north": {"uv": [1, 10, 5, 12], "texture": "#pie"},
+				"east": {"uv": [1, 5, 3, 12], "rotation": 90, "texture": "#pie"},
+				"south": {"uv": [1, 1, 5, 3], "texture": "#pie"},
+				"west": {"uv": [3, 5, 5, 12], "rotation": 90, "texture": "#pie"},
+				"up": {"uv": [5, 10, 1, 3], "texture": "#pie"},
+				"down": {"uv": [0, 0, 1, 1], "rotation": 180, "texture": "#pie"}
+			}
+		},
+		{
+			"name": "leaf",
+			"from": [10, 2.1, 2.4],
+			"to": [13, 2.11, 5.4],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [11.5, 2, 3.9]},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#leaf"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#leaf"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "tray",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "plate",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [0]
+				}
+			]
+		},
+		{
+			"name": "content",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "pie2",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [1]
+				},
+				{
+					"name": "pie3",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [2]
+				},
+				{
+					"name": "leaf",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [3]
+				}
+			]
+		}
+	]
+}

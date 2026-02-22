@@ -16,9 +16,13 @@ public enum ItemsRegistry {
     // No registration for the group
     PANCAKES("pancakes", () -> new StewItem(createFoodSettings(FoodItem.PANCAKES).maxCount(0)), false),
     PIECE_FISH_PIE("piece_fish_pie", () -> new StewItem(createFoodSettings(FoodItem.PIECE_FISH_PIE).maxCount(0)), false),
+    PIECE_CABBAGE_PIE("piece_cabbage_pie", () -> new StewItem(createFoodSettings(FoodItem.PIECE_CABBAGE_PIE).maxCount(0)), false),
 
     // Other
     CUCUMBER("cucumber", () -> new StewItem(createFoodSettings(FoodItem.CUCUMBER))),
+
+    // Bakery
+    CABBAGE_PIE("cabbage_pie", () -> new StewItem(createFoodSettings(FoodItem.CABBAGE_PIE))), 
 
     // Food items
     BORSCHT("bowl_of_borscht", () -> new StewItem(createFoodSettings(FoodItem.BORSCHT).maxCount(1))),
@@ -33,7 +37,8 @@ public enum ItemsRegistry {
     SOLYANKA_POT("solyanka_pot", () -> new BlockItem(BlocksRegistry.SOLYANKA_POT.get(), new Item.Settings())),
     RASSOLNIK_POT("rassolnik_pot", () -> new BlockItem(BlocksRegistry.RASSOLNIK_POT.get(), new Item.Settings())),
     PANCAKES_TRAY("pancakes_tray", () -> new BlockItem(BlocksRegistry.PANCAKES_TRAY.get(), new Item.Settings())),
-    FISH_PIE("fish_pie", () -> new BlockItem(BlocksRegistry.FISH_PIE.get(), new Item.Settings()));
+    FISH_PIE("fish_pie", () -> new BlockItem(BlocksRegistry.FISH_PIE.get(), new Item.Settings())),
+    CABBAGE_PIES_TRAY("cabbage_pies_tray", () -> new BlockItem(BlocksRegistry.CABBAGE_PIES_TRAY.get(), new Item.Settings()));
 
     private final String pathName;
     private final Supplier<Item> itemSupplier;

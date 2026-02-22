@@ -2,12 +2,15 @@
   "itemgroup.russiansdelight.group": "Русский восторг",
 
   "item.russiansdelight.cucumber": "Огурец",
+  "item.russiansdelight.cabbage_pie": "Пирожок с капустой",
   "item.russiansdelight.can_pickled_cucumbers": "Банка маринованных огурцов",
 
   "item.russiansdelight.bowl_of_borscht": "Борщ",
   "item.russiansdelight.bowl_of_shchi": "Щи",
   "item.russiansdelight.bowl_of_solyanka": "Солянка",
   "item.russiansdelight.bowl_of_rassolnik": "Рассольник",
+  "item.russiansdelight.cabbage_pies_tray": "Поднос с пирожками с капустой",
+
 
 
   "block.russiansdelight.small_pot": "Маленькая кастрюля",
@@ -17,5 +20,6 @@
   "block.russiansdelight.rassolnik_pot": "Кастрюля рассольника",
 
   "block.russiansdelight.pancakes_tray": "Поднос с блинами",
-  "block.russainsdelight.fish_pie": "Рыбный пирог"
+  "block.russainsdelight.fish_pie": "Рыбный пирог",
+  "block.russiansdelight.cabbage_pies_tray": "Поднос с пирожками с капустой"
 }

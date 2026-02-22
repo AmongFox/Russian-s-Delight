@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=north,servings=0": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_0"
+    },
+    "facing=east,servings=0": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_0",
+      "y": 90
+    },
+    "facing=south,servings=0": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_0",
+      "y": 180
+    },
+    "facing=west,servings=0": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_0",
+      "y": 270
+    },
+    "facing=north,servings=1": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_1"
+    },
+    "facing=east,servings=1": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_1",
+      "y": 90
+    },
+    "facing=south,servings=1": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_1",
+      "y": 180
+    },
+    "facing=west,servings=1": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_1",
+      "y": 270
+    },
+    "facing=north,servings=2": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_2"
+    },
+    "facing=east,servings=2": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_2",
+      "y": 90
+    },
+    "facing=south,servings=2": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_2",
+      "y": 180
+    },
+    "facing=west,servings=2": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_2",
+      "y": 270
+    },
+    "facing=north,servings=3": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_3"
+    },
+    "facing=east,servings=3": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_3",
+      "y": 90
+    },
+    "facing=south,servings=3": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_3",
+      "y": 180
+    },
+    "facing=west,servings=3": {
+      "model": "russiansdelight:block/cabbage_pies_tray_serving_3",
+      "y": 270
+    }
+  }
+}
