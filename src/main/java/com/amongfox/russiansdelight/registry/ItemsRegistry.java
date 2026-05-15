@@ -13,24 +13,26 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 public enum ItemsRegistry {
-    // No registration for the group
-    PANCAKES("pancakes", () -> new StewItem(createFoodSettings(FoodItem.PANCAKES).maxCount(0)), false),
-    PIECE_FISH_PIE("piece_fish_pie", () -> new StewItem(createFoodSettings(FoodItem.PIECE_FISH_PIE).maxCount(0)), false),
-    PIECE_CABBAGE_PIE("piece_cabbage_pie", () -> new StewItem(createFoodSettings(FoodItem.PIECE_CABBAGE_PIE).maxCount(0)), false),
-
-    // Other
+    // Другое
     CUCUMBER("cucumber", () -> new StewItem(createFoodSettings(FoodItem.CUCUMBER))),
 
-    // Bakery
-    CABBAGE_PIE("cabbage_pie", () -> new StewItem(createFoodSettings(FoodItem.CABBAGE_PIE))), 
+    // Выпечка
+    PANCAKES("pancakes", () -> new StewItem(createFoodSettings(FoodItem.PANCAKES).maxCount(0)), false),
+    PIECE_FISH_PIE("piece_fish_pie", () -> new StewItem(createFoodSettings(FoodItem.PIECE_FISH_PIE).maxCount(0)), false),
+    CABBAGE_PIE("cabbage_pie", () -> new StewItem(createFoodSettings(FoodItem.CABBAGE_PIE).maxCount(16))),
+    BERRY_PIE("berry_pie", () -> new StewItem(createFoodSettings(FoodItem.BERRY_PIE).maxCount(16))),
 
-    // Food items
+    // Супы
     BORSCHT("bowl_of_borscht", () -> new StewItem(createFoodSettings(FoodItem.BORSCHT).maxCount(1))),
     SHCHI("bowl_of_shchi", () -> new StewItem(createFoodSettings(FoodItem.SHCHI).maxCount(1))),
     SOLYANKA("bowl_of_solyanka", () -> new StewItem(createFoodSettings(FoodItem.SOLYANKA).maxCount(1))),
     RASSOLNIK("bowl_of_rassolnik", () -> new StewItem(createFoodSettings(FoodItem.RASSOLNIK).maxCount(1))),
 
-    // Food blocks
+    // Основные блюда
+    ROAST("bowl_of_roast", () -> new StewItem(createFoodSettings(FoodItem.ROAST).maxCount(1))),
+    PELMENI("bowl_of_pelmeni", () -> new StewItem(createFoodSettings(FoodItem.PELMENI).maxCount(1))),
+
+    // Блоки
     SMALL_POT("small_pot", () -> new BlockItem(BlocksRegistry.SMALL_POT.get(), new Item.Settings())),
     BORSCHT_POT("borscht_pot", () -> new BlockItem(BlocksRegistry.BORSCHT_POT.get(), new Item.Settings())),
     SHCHI_POT("shchi_pot", () -> new BlockItem(BlocksRegistry.SHCHI_POT.get(), new Item.Settings())),
@@ -38,7 +40,9 @@ public enum ItemsRegistry {
     RASSOLNIK_POT("rassolnik_pot", () -> new BlockItem(BlocksRegistry.RASSOLNIK_POT.get(), new Item.Settings())),
     PANCAKES_TRAY("pancakes_tray", () -> new BlockItem(BlocksRegistry.PANCAKES_TRAY.get(), new Item.Settings())),
     FISH_PIE("fish_pie", () -> new BlockItem(BlocksRegistry.FISH_PIE.get(), new Item.Settings())),
-    CABBAGE_PIES_TRAY("cabbage_pies_tray", () -> new BlockItem(BlocksRegistry.CABBAGE_PIES_TRAY.get(), new Item.Settings()));
+    CABBAGE_PIES_TRAY("cabbage_pies_tray", () -> new BlockItem(BlocksRegistry.CABBAGE_PIES_TRAY.get(), new Item.Settings())),
+    BERRIES_PIES_TRAY("berries_pies_tray", () -> new BlockItem(BlocksRegistry.BERRIES_PIES_TRAY.get(), new Item.Settings()));
+
 
     private final String pathName;
     private final Supplier<Item> itemSupplier;

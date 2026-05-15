@@ -1,3 +1,6 @@
 {
-  "parent": "russiansdelight:block/cabbage_pies_tray"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "russiansdelight:item/cabbage_pies_tray"
+  }
 }

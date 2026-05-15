@@ -15,11 +15,10 @@ import net.minecraft.util.shape.VoxelShape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CabbagePiesTrayBlock extends AbstractFoodBlock {
+public class BerriesPiesTrayBlock extends AbstractFoodBlock {
     private static final int MAX_SERVINGS = 3;
     protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 8.0, 15.0);
-
-    public CabbagePiesTrayBlock() {
+    public BerriesPiesTrayBlock() {
         super(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(0.5F).sounds(BlockSoundGroup.WOOD).nonOpaque());
     }
 
@@ -35,7 +34,7 @@ public class CabbagePiesTrayBlock extends AbstractFoodBlock {
 
     @Override
     protected Item getFoodItem() {
-        return ItemsRegistry.CABBAGE_PIE.get();
+        return ItemsRegistry.BERRY_PIE.get();
     }
 
     @Override
