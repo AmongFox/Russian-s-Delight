@@ -144,6 +144,8 @@ public abstract class AbstractFoodBlock extends Block {
         return servings <= 0 && itemStack.isEmpty();
     }
 
+
+
     @Override
     public boolean canPlaceAt(BlockState blockState, WorldView worldView, BlockPos blockPos) {
         return worldView.getBlockState(blockPos.down()).isSolid();
@@ -179,7 +181,6 @@ public abstract class AbstractFoodBlock extends Block {
     }
 
     public ActionResult takeServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        System.out.println("Call takeServing");
         int servings = blockState.get(getServingsProperty());
 
         ItemStack serving = getServingStack();
@@ -203,7 +204,6 @@ public abstract class AbstractFoodBlock extends Block {
     }
 
     public ActionResult addServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        System.out.println("Call addServing");
         int servings = blockState.get(getServingsProperty());
 
         ItemStack heldItem = player.getStackInHand(hand);
