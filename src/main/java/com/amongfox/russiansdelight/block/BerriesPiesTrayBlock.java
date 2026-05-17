@@ -17,7 +17,7 @@ import java.util.List;
 
 public class BerriesPiesTrayBlock extends AbstractFoodBlock {
     private static final int MAX_SERVINGS = 3;
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 8.0, 15.0);
+    protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 5.0, 15.0);
     public BerriesPiesTrayBlock() {
         super(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(0.5F).sounds(BlockSoundGroup.WOOD).nonOpaque());
     }
@@ -30,6 +30,11 @@ public class BerriesPiesTrayBlock extends AbstractFoodBlock {
     @Override
     protected boolean getEatDirectly() {
         return false;
+    }
+
+    @Override
+    protected boolean getGrabDirectly() {
+        return true;
     }
 
     @Override

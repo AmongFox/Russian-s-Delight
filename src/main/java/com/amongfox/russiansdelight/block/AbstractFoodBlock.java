@@ -49,6 +49,9 @@ public abstract class AbstractFoodBlock extends Block {
     // Абстрактные методы для настройки в дочерних классах
     protected abstract int getMaxServings();
     protected abstract boolean getEatDirectly();
+    protected boolean getGrabDirectly() {
+        return false;
+    }
     protected abstract Item getFoodItem();
     protected abstract VoxelShape getShape();
     protected abstract SoundEvent getTakeServingSoundEvent();
@@ -117,6 +120,10 @@ public abstract class AbstractFoodBlock extends Block {
             if (world.isClient()) return ActionResult.SUCCESS;
             return addServing(world, blockPos, blockState, player, hand);
         }
+        if (canGrabServing(itemStack, servings)) {
+            if (world.isClient()) return ActionResult.SUCCESS;
+            return grabServing(world, blockPos, blockState, player, hand);
+        }
         if (canEatDirectly(itemStack, servings)) {
             if (world.isClient()) return ActionResult.SUCCESS;
             return eatDirectly(world, blockPos, blockState, player, hand);
@@ -141,10 +148,12 @@ public abstract class AbstractFoodBlock extends Block {
         return getEatDirectly() && itemStack.isEmpty() && servings > 0;
     }
     private boolean canPickupLeftovers(ItemStack itemStack, int servings) {
-        return servings <= 0 && itemStack.isEmpty();
+        return getGrabDirectly() && itemStack.isEmpty() && servings > 0;
     }
 
-
+    private boolean canGrabServing(ItemStack itemStack, int servings) {
+        return getGrabDirectly() && itemStack.isEmpty() && servings > 0;
+    }
 
     @Override
     public boolean canPlaceAt(BlockState blockState, WorldView worldView, BlockPos blockPos) {
@@ -245,6 +254,23 @@ public abstract class AbstractFoodBlock extends Block {
         }
 
         return ActionResult.PASS;
+    }
+
+    public ActionResult grabServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
+        int servings = blockState.get(getServingsProperty());
+
+        ItemStack serving = getServingStack();
+
+        world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
+        world.playSound(null, blockPos, getTakeServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
+
+        if (!player.getAbilities().creativeMode) {
+            if (!player.getInventory().insertStack(serving)) {
+                player.dropItem(serving, false);
+            }
+        }
+
+        return ActionResult.SUCCESS;
     }
 
     public ActionResult pickupLeftovers(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
