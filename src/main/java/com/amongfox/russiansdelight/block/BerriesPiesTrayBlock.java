@@ -15,7 +15,7 @@ import net.minecraft.util.shape.VoxelShape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BerriesPiesTrayBlock extends AbstractFoodBlock {
+public class BerriesPiesTrayBlock extends AbstractTrayBlock {
     private static final int MAX_SERVINGS = 3;
     protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 5.0, 15.0);
     public BerriesPiesTrayBlock() {

@@ -15,7 +15,7 @@ import net.minecraft.util.shape.VoxelShape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FishPieBlock extends AbstractFoodBlock {
+public class FishPieBlock extends AbstractTrayBlock {
     private static final int MAX_SERVINGS = 4;
     protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 7.0, 15.0);
 

@@ -48,10 +48,6 @@ public abstract class AbstractFoodBlock extends Block {
 
     // Абстрактные методы для настройки в дочерних классах
     protected abstract int getMaxServings();
-    protected abstract boolean getEatDirectly();
-    protected boolean getGrabDirectly() {
-        return false;
-    }
     protected abstract Item getFoodItem();
     protected abstract VoxelShape getShape();
     protected abstract SoundEvent getTakeServingSoundEvent();
@@ -112,47 +108,7 @@ public abstract class AbstractFoodBlock extends Block {
         System.out.println("Is client: " + world.isClient());
         System.out.println("ItemStackIsEmpty: " + itemStack.isEmpty());
 
-        if (canTakeServing(itemStack, servings)) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return takeServing(world, blockPos, blockState, player, hand);
-        }
-        if (canAddServing(itemStack, servings)) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return addServing(world, blockPos, blockState, player, hand);
-        }
-        if (canGrabServing(itemStack, servings)) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return grabServing(world, blockPos, blockState, player, hand);
-        }
-        if (canEatDirectly(itemStack, servings)) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return eatDirectly(world, blockPos, blockState, player, hand);
-        }
-        if (canPickupLeftovers(itemStack, servings)) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return pickupLeftovers(world, blockPos, blockState, player, hand);
-        }
-
         return ActionResult.PASS;
-    }
-
-    private boolean canTakeServing(ItemStack itemStack, int servings) {
-        return itemStack.isOf(Items.BOWL) && servings > 0;
-    }
-
-    private boolean canAddServing(ItemStack itemStack, int servings) {
-        return itemStack.isOf(getFoodItem()) && servings < getMaxServings();
-    }
-
-    protected boolean canEatDirectly(ItemStack itemStack, int servings) {
-        return getEatDirectly() && itemStack.isEmpty() && servings > 0;
-    }
-    private boolean canPickupLeftovers(ItemStack itemStack, int servings) {
-        return getGrabDirectly() && itemStack.isEmpty() && servings > 0;
-    }
-
-    private boolean canGrabServing(ItemStack itemStack, int servings) {
-        return getGrabDirectly() && itemStack.isEmpty() && servings > 0;
     }
 
     @Override
@@ -189,29 +145,6 @@ public abstract class AbstractFoodBlock extends Block {
         return new ItemStack(getFoodItem());
     }
 
-    public ActionResult takeServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        int servings = blockState.get(getServingsProperty());
-
-        ItemStack serving = getServingStack();
-        ItemStack itemStack = player.getStackInHand(hand);
-
-        if (itemStack.isOf(Items.BOWL)) {
-            world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
-
-            world.playSound(null, blockPos, getTakeServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
-
-            if (!player.getAbilities().creativeMode) {
-                itemStack.decrement(1);
-                if (!player.getInventory().insertStack(serving)) {
-                    player.dropItem(serving, false);
-                }
-            }
-            return ActionResult.SUCCESS;
-        }
-
-        return ActionResult.PASS;
-    }
-
     public ActionResult addServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
         int servings = blockState.get(getServingsProperty());
 
@@ -219,7 +152,6 @@ public abstract class AbstractFoodBlock extends Block {
 
         if (heldItem.isOf(getFoodItem())) {
             world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings + 1), 3);
-
             world.playSound(null, blockPos, getAddServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
 
             if (!player.getAbilities().creativeMode) {
@@ -236,14 +168,12 @@ public abstract class AbstractFoodBlock extends Block {
     }
 
     public ActionResult eatDirectly(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        System.out.println("Call eatDirectly");
         int servings = blockState.get(getServingsProperty());
 
         ItemStack serving = getServingStack();
 
         if (player.canConsume(false)) {
             world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
-
             world.playSound(null, blockPos, SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8F, 1.0F);
 
             player.getHungerManager().eat(serving.getItem(), serving);
@@ -256,25 +186,7 @@ public abstract class AbstractFoodBlock extends Block {
         return ActionResult.PASS;
     }
 
-    public ActionResult grabServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        int servings = blockState.get(getServingsProperty());
-
-        ItemStack serving = getServingStack();
-
-        world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
-        world.playSound(null, blockPos, getTakeServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
-
-        if (!player.getAbilities().creativeMode) {
-            if (!player.getInventory().insertStack(serving)) {
-                player.dropItem(serving, false);
-            }
-        }
-
-        return ActionResult.SUCCESS;
-    }
-
-    public ActionResult pickupLeftovers(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        System.out.println("Call pickupLeftovers");
+    public ActionResult pickupLeftovers(World world, BlockPos blockPos, PlayerEntity player) {
         world.playSound(null, blockPos, getBreakSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
         world.breakBlock(blockPos, false, player);
 

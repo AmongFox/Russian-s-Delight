@@ -14,7 +14,7 @@ import net.minecraft.util.shape.VoxelShape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BorschtPotBlock extends AbstractFoodBlock {
+public class BorschtPotBlock extends AbstractPotBlock {
     private static final int MAX_SERVINGS = 6;
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 7.0, 14.0);
 
@@ -25,11 +25,6 @@ public class BorschtPotBlock extends AbstractFoodBlock {
     @Override
     protected int getMaxServings() {
         return MAX_SERVINGS;
-    }
-
-    @Override
-    protected boolean getEatDirectly() {
-        return false;
     }
 
     @Override

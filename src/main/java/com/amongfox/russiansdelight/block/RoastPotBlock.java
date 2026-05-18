@@ -8,7 +8,7 @@ import net.minecraft.util.shape.VoxelShape;
 
 import java.util.List;
 
-public class RoastPotBlock extends AbstractFoodBlock{
+public class RoastPotBlock extends AbstractPotBlock {
     public RoastPotBlock(FabricBlockSettings fabricBlockSettings) {
         super(fabricBlockSettings);
     }
@@ -16,11 +16,6 @@ public class RoastPotBlock extends AbstractFoodBlock{
     @Override
     protected int getMaxServings() {
         return 0;
-    }
-
-    @Override
-    protected boolean getEatDirectly() {
-        return false;
     }
 
     @Override
