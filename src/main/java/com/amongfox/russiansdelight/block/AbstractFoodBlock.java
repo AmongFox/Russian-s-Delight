@@ -1,201 +1,200 @@
 package com.amongfox.russiansdelight.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public abstract class AbstractFoodBlock extends Block {
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public AbstractFoodBlock(FabricBlockSettings fabricBlockSettings) {
-        super(fabricBlockSettings);
-        setDefaultState((BlockState)((BlockState)this.getStateManager().getDefaultState()).with(getServingsProperty(), getMaxServings()));
-    }
+	public AbstractFoodBlock(FabricBlockSettings fabricBlockSettings) {
+		super(fabricBlockSettings);
+		registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(getServingsProperty(), getMaxServings()));
+	}
 
-    public IntProperty getServingsProperty() {
-        return IntProperty.of("servings", 0, getMaxServings());
-    }
+	public IntegerProperty getServingsProperty() {
+		return IntegerProperty.create("servings", 0, getMaxServings());
+	}
 
-    // Абстрактные методы для настройки в дочерних классах
-    protected abstract int getMaxServings();
-    protected abstract Item getFoodItem();
-    protected abstract VoxelShape getShape();
-    protected abstract SoundEvent getTakeServingSoundEvent();
-    protected abstract SoundEvent getAddServingSoundEvent();
-    protected abstract SoundEvent getBreakSoundEvent();
-    protected abstract List<ItemStack> getLeftoverDrops();
+	protected abstract int getMaxServings();
+	protected abstract Item getFoodItem();
+	protected abstract VoxelShape getShape();
+	protected abstract SoundEvent getTakeServingSoundEvent();
+	protected abstract SoundEvent getAddServingSoundEvent();
+	protected abstract SoundEvent getBreakSoundEvent();
+	protected abstract List<ItemStack> getLeftoverDrops();
 
-    @Nullable
-    @Override
-    public BlockState getPlacementState(ItemPlacementContext placementContext) {
-        BlockState blockState = getDefaultState().with(FACING, placementContext.getHorizontalPlayerFacing().getOpposite());
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext placementContext) {
+		BlockState blockState = defaultBlockState().setValue(FACING, placementContext.getHorizontalDirection().getOpposite());
 
-        ItemStack itemStack = placementContext.getStack();
-        if (itemStack.hasNbt()) {
-            NbtCompound nbt = itemStack.getNbt();
-            if (nbt != null && nbt.contains("servings")) {
-                int savedServings = nbt.getInt("servings");
-                blockState = blockState.with(getServingsProperty(), savedServings);
-            }
-        }
+		ItemStack itemStack = placementContext.getItemInHand();
+		if (itemStack.hasTag()) {
+			CompoundTag nbt = itemStack.getTag();
+			if (nbt != null && nbt.contains("servings")) {
+				int savedServings = nbt.getInt("servings");
+				blockState = blockState.setValue(getServingsProperty(), savedServings);
+			}
+		}
 
-        return blockState;
-    }
+		return blockState;
+	}
 
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, getServingsProperty());
-    }
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(FACING, getServingsProperty());
+	}
 
-    @Override
-    public void onBreak(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player) {
-        int servings = blockState.get(getServingsProperty());
+	@Override
+	public void playerWillDestroy(Level world, BlockPos blockPos, BlockState blockState, Player player) {
+		int servings = blockState.getValue(getServingsProperty());
 
-        ItemStack blockItem = new ItemStack(this);
+		ItemStack blockItem = new ItemStack(this);
 
-        if (!player.isCreative()) {
-            if (servings != getMaxServings()) {
-                NbtCompound nbt = new NbtCompound();
-                nbt.putInt("servings", servings);
-                blockItem.setNbt(nbt);
-            }
+		if (!player.isCreative()) {
+			if (servings != getMaxServings()) {
+				CompoundTag nbt = new CompoundTag();
+				nbt.putInt("servings", servings);
+				blockItem.setTag(nbt);
+			}
 
-            ItemScatterer.spawn(world, blockPos, DefaultedList.ofSize(1, blockItem));
-        }
+			Block.popResource(world, blockPos, blockItem);
+		}
 
-        super.onBreak(world, blockPos, blockState, player);
-    }
+		super.playerWillDestroy(world, blockPos, blockState, player);
+	}
 
-    @Override
-    public ActionResult onUse(BlockState blockState, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        int servings = blockState.get(getServingsProperty());
+	@Override
+	public InteractionResult use(BlockState blockState, Level world, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		ItemStack itemStack = player.getItemInHand(hand);
+		int servings = blockState.getValue(getServingsProperty());
 
-        System.out.println("=== BLOCK INTERACTION ===");
-        System.out.println("Block Class: " + this.getClass().getSimpleName());
-        System.out.println("Servings: " + servings + "/" + getMaxServings());
-        System.out.println("Held item: " + itemStack.getItem());
-        System.out.println("Is client: " + world.isClient());
-        System.out.println("ItemStackIsEmpty: " + itemStack.isEmpty());
+		System.out.println("=== BLOCK INTERACTION ===");
+		System.out.println("Block Class: " + this.getClass().getSimpleName());
+		System.out.println("Servings: " + servings + "/" + getMaxServings());
+		System.out.println("Held item: " + itemStack.getItem());
+		System.out.println("Is client: " + world.isClientSide());
+		System.out.println("ItemStackIsEmpty: " + itemStack.isEmpty());
 
-        return ActionResult.PASS;
-    }
+		return InteractionResult.PASS;
+	}
 
-    @Override
-    public boolean canPlaceAt(BlockState blockState, WorldView worldView, BlockPos blockPos) {
-        return worldView.getBlockState(blockPos.down()).isSolid();
-    }
+	@Override
+	public boolean canSurvive(BlockState blockState, LevelReader worldView, BlockPos blockPos) {
+		return worldView.getBlockState(blockPos.below()).isSolid();
+	}
 
-    @Override
-    public BlockState getStateForNeighborUpdate(BlockState blockState, Direction direction, BlockState neighborState, WorldAccess worldAccess, BlockPos blockPos, BlockPos neighborPos) {
-        return super.getStateForNeighborUpdate(blockState, direction, neighborState, worldAccess, blockPos, neighborPos);
-    }
+	@Override
+	public BlockState updateShape(BlockState blockState, Direction direction, BlockState neighborState, LevelAccessor worldAccess, BlockPos blockPos, BlockPos neighborPos) {
+		return super.updateShape(blockState, direction, neighborState, worldAccess, blockPos, neighborPos);
+	}
 
-    @Override
-    public boolean canPathfindThrough(BlockState blockState, BlockView blockView, BlockPos pos, NavigationType navigationType) {
-        return false;
-    }
+	@Override
+	public boolean isPathfindable(BlockState blockState, BlockGetter blockView, BlockPos pos, PathComputationType navigationType) {
+		return false;
+	}
 
-    @Override
-    public boolean hasComparatorOutput(BlockState blockState) {
-        return true;
-    }
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState blockState) {
+		return true;
+	}
 
-    @Override
-    public int getComparatorOutput(BlockState blockState, World world, BlockPos blockPos) {
-        return blockState.get(getServingsProperty());
-    }
+	@Override
+	public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos blockPos) {
+		return blockState.getValue(getServingsProperty());
+	}
 
-    @Override
-    public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, ShapeContext shapeContext) {
-        return getShape();
-    }
+	@Override
+	public VoxelShape getShape(BlockState blockState, BlockGetter blockView, BlockPos blockPos, CollisionContext shapeContext) {
+		return getShape();
+	}
 
-    public ItemStack getServingStack() {
-        return new ItemStack(getFoodItem());
-    }
+	public ItemStack getServingStack() {
+		return new ItemStack(getFoodItem());
+	}
 
-    public ActionResult addServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        int servings = blockState.get(getServingsProperty());
+	public InteractionResult addServing(Level world, BlockPos blockPos, BlockState blockState, Player player, InteractionHand hand) {
+		int servings = blockState.getValue(getServingsProperty());
 
-        ItemStack heldItem = player.getStackInHand(hand);
+		ItemStack heldItem = player.getItemInHand(hand);
 
-        if (heldItem.isOf(getFoodItem())) {
-            world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings + 1), 3);
-            world.playSound(null, blockPos, getAddServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
+		if (heldItem.is(getFoodItem())) {
+			world.setBlock(blockPos, blockState.setValue(getServingsProperty(), servings + 1), 3);
+			world.playSound(null, blockPos, getAddServingSoundEvent(), SoundSource.PLAYERS, 0.8F, 0.8F);
 
-            if (!player.getAbilities().creativeMode) {
-                heldItem.decrement(1);
-                ItemStack bowl = new ItemStack(Items.BOWL);
-                if (!player.getInventory().insertStack(bowl)) {
-                    player.dropItem(bowl, false);
-                }
-            }
-            return ActionResult.SUCCESS;
-        }
+			if (!player.getAbilities().instabuild) {
+				heldItem.shrink(1);
+				ItemStack bowl = new ItemStack(Items.BOWL);
+				if (!player.getInventory().add(bowl)) {
+					player.drop(bowl, false);
+				}
+			}
+			return InteractionResult.SUCCESS;
+		}
 
-        return ActionResult.PASS;
-    }
+		return InteractionResult.PASS;
+	}
 
-    public ActionResult eatDirectly(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        int servings = blockState.get(getServingsProperty());
+	public InteractionResult eatDirectly(Level world, BlockPos blockPos, BlockState blockState, Player player, InteractionHand hand) {
+		int servings = blockState.getValue(getServingsProperty());
 
-        ItemStack serving = getServingStack();
+		ItemStack serving = getServingStack();
 
-        if (player.canConsume(false)) {
-            world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
-            world.playSound(null, blockPos, SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8F, 1.0F);
+		if (player.canEat(false)) {
+			world.setBlock(blockPos, blockState.setValue(getServingsProperty(), servings - 1), 3);
+			world.playSound(null, blockPos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 1.0F);
 
-            player.getHungerManager().eat(serving.getItem(), serving);
+			player.getFoodData().eat(serving.getItem(), serving);
 
-            player.swingHand(hand);
+			player.swing(hand);
 
-            return ActionResult.SUCCESS;
-        }
+			return InteractionResult.SUCCESS;
+		}
 
-        return ActionResult.PASS;
-    }
+		return InteractionResult.PASS;
+	}
 
-    public ActionResult pickupLeftovers(World world, BlockPos blockPos, PlayerEntity player) {
-        world.playSound(null, blockPos, getBreakSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
-        world.breakBlock(blockPos, false, player);
+	public InteractionResult pickupLeftovers(Level world, BlockPos blockPos, Player player) {
+		world.playSound(null, blockPos, getBreakSoundEvent(), SoundSource.PLAYERS, 0.8F, 0.8F);
+		world.destroyBlock(blockPos, false, player);
 
-        List<ItemStack> drops = getLeftoverDrops();
+		List<ItemStack> drops = getLeftoverDrops();
 
-        for (ItemStack stack : drops) {
-            ItemScatterer.spawn(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), stack);
-        }
+		for (ItemStack stack : drops) {
+			Containers.dropItemStack(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), stack);
+		}
 
-        return ActionResult.SUCCESS;
-    }
+		return InteractionResult.SUCCESS;
+	}
 }

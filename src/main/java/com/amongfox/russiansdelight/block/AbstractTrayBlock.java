@@ -1,83 +1,83 @@
 package com.amongfox.russiansdelight.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 public abstract class AbstractTrayBlock extends AbstractFoodBlock {
-    public AbstractTrayBlock(FabricBlockSettings settings) {
-        super(settings);
-    }
+	public AbstractTrayBlock(FabricBlockSettings settings) {
+		super(settings);
+	}
 
-    protected abstract boolean getEatDirectly();
-    protected boolean getGrabDirectly() {
-        return false;
-    }
+	protected abstract boolean getEatDirectly();
+	protected boolean getGrabDirectly() {
+		return false;
+	}
 
-    @Override
-    public ActionResult onUse(BlockState blockState, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        int servings = blockState.get(getServingsProperty());
+	@Override
+	public InteractionResult use(BlockState blockState, Level world, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		ItemStack itemStack = player.getItemInHand(hand);
+		int servings = blockState.getValue(getServingsProperty());
 
-        if (getGrabDirectly() && itemStack.isEmpty() && servings > 0) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return grabServing(world, blockPos, blockState, player);
-        }
+		if (getGrabDirectly() && itemStack.isEmpty() && servings > 0) {
+			if (world.isClientSide()) return InteractionResult.SUCCESS;
+			return grabServing(world, blockPos, blockState, player);
+		}
 
-        if (itemStack.isOf(getFoodItem()) && servings < getMaxServings()) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return addServing(world, blockPos, blockState, player, hand);
-        }
+		if (itemStack.is(getFoodItem()) && servings < getMaxServings()) {
+			if (world.isClientSide()) return InteractionResult.SUCCESS;
+			return addServing(world, blockPos, blockState, player, hand);
+		}
 
-        if (getEatDirectly() && itemStack.isEmpty() && servings > 0) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return eatDirectly(world, blockPos, blockState, player, hand);
-        }
+		if (getEatDirectly() && itemStack.isEmpty() && servings > 0) {
+			if (world.isClientSide()) return InteractionResult.SUCCESS;
+			return eatDirectly(world, blockPos, blockState, player, hand);
+		}
 
-        if (servings <= 0 && itemStack.isEmpty()) {
-            if (world.isClient()) return ActionResult.SUCCESS;
-            return pickupLeftovers(world, blockPos, player);
-        }
+		if (servings <= 0 && itemStack.isEmpty()) {
+			if (world.isClientSide()) return InteractionResult.SUCCESS;
+			return pickupLeftovers(world, blockPos, player);
+		}
 
-        return ActionResult.PASS;
-    }
+		return InteractionResult.PASS;
+	}
 
-    public ActionResult grabServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player) {
-        int servings = blockState.get(getServingsProperty());
+	public InteractionResult grabServing(Level world, BlockPos blockPos, BlockState blockState, Player player) {
+		int servings = blockState.getValue(getServingsProperty());
 
-        ItemStack serving = getServingStack();
+		ItemStack serving = getServingStack();
 
-        world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings - 1), 3);
-        world.playSound(null, blockPos, getTakeServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
+		world.setBlock(blockPos, blockState.setValue(getServingsProperty(), servings - 1), 3);
+		world.playSound(null, blockPos, getTakeServingSoundEvent(), SoundSource.PLAYERS, 0.8F, 0.8F);
 
-        if (!player.getInventory().insertStack(serving)) {
-            player.dropItem(serving, false);
-        }
+		if (!player.getInventory().add(serving)) {
+			player.drop(serving, false);
+		}
 
-        return ActionResult.SUCCESS;
-    }
+		return InteractionResult.SUCCESS;
+	}
 
-    @Override
-    public ActionResult addServing(World world, BlockPos blockPos, BlockState blockState, PlayerEntity player, Hand hand) {
-        int servings = blockState.get(getServingsProperty());
+	@Override
+	public InteractionResult addServing(Level world, BlockPos blockPos, BlockState blockState, Player player, InteractionHand hand) {
+		int servings = blockState.getValue(getServingsProperty());
 
-        ItemStack heldItem = player.getStackInHand(hand);
+		ItemStack heldItem = player.getItemInHand(hand);
 
-        if (heldItem.isOf(getFoodItem())) {
-            world.setBlockState(blockPos, blockState.with(getServingsProperty(), servings + 1), 3);
-            world.playSound(null, blockPos, getAddServingSoundEvent(), SoundCategory.PLAYERS, 0.8F, 0.8F);
+		if (heldItem.is(getFoodItem())) {
+			world.setBlock(blockPos, blockState.setValue(getServingsProperty(), servings + 1), 3);
+			world.playSound(null, blockPos, getAddServingSoundEvent(), SoundSource.PLAYERS, 0.8F, 0.8F);
 
-            if (!player.getAbilities().creativeMode) heldItem.decrement(1);
+			if (!player.getAbilities().instabuild) heldItem.shrink(1);
 
-            return ActionResult.SUCCESS;
-        }
-        return ActionResult.PASS;
-    }
+			return InteractionResult.SUCCESS;
+		}
+		return InteractionResult.PASS;
+	}
 }
