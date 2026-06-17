@@ -1,8 +1,10 @@
 package com.amongfox.russiansdelight;
 
 import com.amongfox.russiansdelight.registry.ModBlocks;
+import com.amongfox.russiansdelight.registry.ModBlockEntityTypes;
 import com.amongfox.russiansdelight.registry.ModItemsGroup;
 import com.amongfox.russiansdelight.registry.ModItems;
+import com.amongfox.russiansdelight.registry.ModMenuTypes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
@@ -33,6 +35,8 @@ public class RussiansDelight implements ModInitializer {
 		ModBlocks.registerAll();
 		ModItems.registerAll();
 		ModItemsGroup.registerItemGroups();
+		ModBlockEntityTypes.registerAll();
+		ModMenuTypes.registerAll();
 
 		LOGGER.info(MOD_ID + " successfully initialized");
 	}

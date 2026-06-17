@@ -55,7 +55,7 @@ public class BorschtPotBlock extends AbstractPotBlock {
 	@Override
 	protected List<ItemStack> getLeftoverDrops() {
 		List<ItemStack> drops = new ArrayList<>();
-		drops.add(new ItemStack(ModItems.SMALL_POT.get(), 1));
+		drops.add(new ItemStack(ModItems.SMALL_COOKING_POT.get(), 1));
 		return drops;
 	}
 }

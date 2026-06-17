@@ -34,7 +34,7 @@ public enum ModItems {
 	PELMENI("bowl_of_pelmeni", () -> new SuspiciousStewItem(createFoodSettings(FoodItem.PELMENI).stacksTo(1))),
 
 	// Blocks
-	SMALL_POT("small_pot", () -> new BlockItem(ModBlocks.SMALL_POT.get(), new Item.Properties())),
+	SMALL_COOKING_POT("small_cooking_pot", () -> new BlockItem(ModBlocks.SMALL_COOKING_POT.get(), new Item.Properties())),
 	BORSCHT_POT("borscht_pot", () -> new BlockItem(ModBlocks.BORSCHT_POT.get(), new Item.Properties())),
 	SHCHI_POT("shchi_pot", () -> new BlockItem(ModBlocks.SHCHI_POT.get(), new Item.Properties())),
 	SOLYANKA_POT("solyanka_pot", () -> new BlockItem(ModBlocks.SOLYANKA_POT.get(), new Item.Properties())),

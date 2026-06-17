@@ -21,7 +21,7 @@ import static com.amongfox.russiansdelight.RussiansDelight.LOGGER;
 
 public enum ModBlocks {
 	// Blocks
-	SMALL_POT("small_pot", SmallPotBlock::new, true),
+	SMALL_COOKING_POT("small_cooking_pot", SmallCookingPotBlock::new, true),
 
 	// Soups
 	BORSCHT_POT("borscht_pot", BorschtPotBlock::new, true),

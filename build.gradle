@@ -18,6 +18,10 @@ repositories {
 			includeGroup "maven.modrinth"
 		}
 	}
+	maven {
+		name = "DevOS Releases"
+		url = "https://mvn.devos.one/releases/"
+	}
 }
 
 dependencies {
@@ -29,6 +33,7 @@ dependencies {
 
 	modImplementation("maven.modrinth:farmers-delight-refabricated:1.20.1-2.4.0")
 	modImplementation("maven.modrinth:jei:15.20.0.116")
+	modCompileOnly("io.github.fabricators_of_create.Porting-Lib:transfer:2.3.8+1.20.1")
 }
 
 processResources {
@@ -40,7 +45,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release.set(17)
 }
 
 java {
