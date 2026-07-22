@@ -32,7 +32,7 @@ public enum FoodItem {
 	// ОСНОВНЫЕ БЛЮДА
 	ROAST(14, 0.8F),
 	PELMENI(6, 0.8F),
-	DUMPLING(1, 0.5F),
+	DUMPLING(1, 0.5F, true, true, false),
 	SEMOLINA_PORRIDGE(10, 0.7F);
 
 	private final Supplier<FoodProperties> food;
