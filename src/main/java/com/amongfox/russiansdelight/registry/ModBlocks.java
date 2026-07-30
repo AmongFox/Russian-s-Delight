@@ -28,6 +28,7 @@ public enum ModBlocks {
 	SHCHI_POT("shchi_pot", ShchiPotBlock::new, true),
 	SOLYANKA_POT("solyanka_pot",SolyankaPotBlock::new, true),
 	RASSOLNIK_POT("rassolnik_pot", RassolnikPotBlock::new, true),
+	OKROSHKA_POT("okroshka_pot", OkroshkaPotBlock::new, true),
 
 	// Bakery
 	PANCAKES_TRAY("pancakes_tray", PancakesTrayBlock::new, true),

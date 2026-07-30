@@ -28,6 +28,10 @@ public enum FoodItem {
 	PANCAKES(8, 0.6F),
 	PIECE_FISH_PIE(6, 0.6F),
 
+	// Напитки
+	KVASS(3, 0.3F),
+	VODKA(2, 0.2F, false, false, true),
+
 	// ОСНОВНЫЕ БЛЮДА
 	ROAST(14, 0.8F),
 	PELMENI(6, 0.8F),

@@ -2,7 +2,9 @@ package com.amongfox.russiansdelight.registry;
 
 import com.amongfox.russiansdelight.RussiansDelight;
 import com.amongfox.russiansdelight.item.FoodItem;
+import com.amongfox.russiansdelight.item.KvassItem;
 import com.amongfox.russiansdelight.item.PotBlockItem;
+import com.amongfox.russiansdelight.item.VodkaItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +23,11 @@ public enum ModItems {
 	CUCUMBER("cucumber", () -> new Item(createFoodSettings(FoodItem.CUCUMBER))),
 	BUTTER("butter", () -> new Item(createFoodSettings(FoodItem.BUTTER))),
 
+	// Drinks
+	KVASS("kvass", () -> new KvassItem(createFoodSettings(FoodItem.KVASS).stacksTo(16))),
+	VODKA("vodka", () -> new VodkaItem(createFoodSettings(FoodItem.VODKA).stacksTo(1))),
+	LARGE_GLASS_BOTTLE("large_glass_bottle", () -> new Item(new Item.Properties())),
+
 	// Bakery
 	PANCAKES("pancakes", () -> new Item(createFoodSettings(FoodItem.PANCAKES)), false),
 	PIECE_FISH_PIE("piece_fish_pie", () -> new Item(createFoodSettings(FoodItem.PIECE_FISH_PIE)), false),
@@ -32,6 +39,7 @@ public enum ModItems {
 	SHCHI("bowl_of_shchi", () -> new Item(createFoodSettings(FoodItem.SHCHI).stacksTo(1))),
 	SOLYANKA("bowl_of_solyanka", () -> new Item(createFoodSettings(FoodItem.SOLYANKA).stacksTo(1))),
 	RASSOLNIK("bowl_of_rassolnik", () -> new Item(createFoodSettings(FoodItem.RASSOLNIK).stacksTo(1))),
+	OKROSHKA("bowl_of_okroshka", () -> new Item(createFoodSettings(FoodItem.OKROSHKA).stacksTo(1))),
 
 	// Main courses
 	ROAST("bowl_of_roast", () -> new Item(createFoodSettings(FoodItem.ROAST).stacksTo(1))),
@@ -47,6 +55,7 @@ public enum ModItems {
 	SHCHI_POT("shchi_pot", () -> new PotBlockItem(ModBlocks.SHCHI_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
 	SOLYANKA_POT("solyanka_pot", () -> new PotBlockItem(ModBlocks.SOLYANKA_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
 	RASSOLNIK_POT("rassolnik_pot", () -> new PotBlockItem(ModBlocks.RASSOLNIK_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
+	OKROSHKA_POT("okroshka_pot", () -> new PotBlockItem(ModBlocks.OKROSHKA_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
 	PANCAKES_TRAY("pancakes_tray", () -> new BlockItem(ModBlocks.PANCAKES_TRAY.get(), new Item.Properties())),
 	FISH_PIE("fish_pie", () -> new BlockItem(ModBlocks.FISH_PIE.get(), new Item.Properties())),
 	CABBAGE_PIES_TRAY("cabbage_pies_tray", () -> new BlockItem(ModBlocks.CABBAGE_PIES_TRAY.get(), new Item.Properties())),
