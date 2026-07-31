@@ -2,9 +2,9 @@
 	"parent": "block/block",
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"particle": "russiansdelight:block/tray_top",
-		"tray_top": "russiansdelight:block/tray_top",
-		"tray_bottom": "russiansdelight:block/tray_bottom",
+		"particle": "farmersdelight:block/tray_top",
+		"tray_top": "farmersdelight:block/tray_top",
+		"tray_bottom": "farmersdelight:block/tray_bottom",
 		"base": "russiansdelight:block/base_pie",
 		"up": "russiansdelight:block/up_fish_pie",
 		"inside": "russiansdelight:block/pie_inside",
