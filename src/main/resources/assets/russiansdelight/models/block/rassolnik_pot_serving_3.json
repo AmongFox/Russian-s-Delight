@@ -1,17 +1,17 @@
 {
-	"format_version": "1.9.0",
+	"format_version": "1.21.11",
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"borsch": "russiansdelight:block/cooking_pot_top_rassolnik",
-		"spice": "russiansdelight:block/spices_2",
-		"ingredients": "russiansdelight:block/ingredients",
 		"top": "russiansdelight:block/cooking_pot_top",
-		"particle": "russiansdelight:block/cooking_pot_side",
-		"side": "russiansdelight:block/cooking_pot_side",
-		"parts": "russiansdelight:block/cooking_pot_parts",
-		"bottom": "russiansdelight:block/cooking_pot_bottom"
+		"particle": "farmersdelight:block/cooking_pot_side",
+		"side": "farmersdelight:block/cooking_pot_side",
+		"parts": "farmersdelight:block/cooking_pot_parts",
+		"bottom": "farmersdelight:block/cooking_pot_bottom",
+		"broth": "russiansdelight:block/cooking_pot_top_rassolnik",
+		"spice": "russiansdelight:block/spices_2",
+		"ingredients": "russiansdelight:block/ingredients"
 	},
 	"elements": [
 		{
@@ -28,7 +28,7 @@
 			}
 		},
 		{
-			"name": "left_egde",
+			"name": "left_edge",
 			"from": [13, 1, 3],
 			"to": [14, 7, 13],
 			"faces": {
@@ -69,7 +69,7 @@
 			}
 		},
 		{
-			"name": "right handle",
+			"name": "right_handle",
 			"from": [14, 4, 5],
 			"to": [16, 6, 11],
 			"faces": {
@@ -78,6 +78,18 @@
 				"south": {"uv": [2, 0, 4, 2], "texture": "#parts"},
 				"up": {"uv": [4, 0, 10, 2], "rotation": 90, "texture": "#parts"},
 				"down": {"uv": [4, 2, 10, 4], "rotation": 90, "texture": "#parts"}
+			}
+		},
+		{
+			"name": "left_handle",
+			"from": [0, 4, 5],
+			"to": [2, 6, 11],
+			"faces": {
+				"north": {"uv": [2, 0, 4, 2], "texture": "#parts"},
+				"south": {"uv": [10, 0, 12, 2], "texture": "#parts"},
+				"west": {"uv": [4, 2, 10, 4], "texture": "#parts"},
+				"up": {"uv": [4, 0, 10, 2], "rotation": 270, "texture": "#parts"},
+				"down": {"uv": [4, 2, 10, 4], "rotation": 270, "texture": "#parts"}
 			}
 		},
 		{
@@ -94,19 +106,7 @@
 			}
 		},
 		{
-			"name": "left handle",
-			"from": [0, 4, 5],
-			"to": [2, 6, 11],
-			"faces": {
-				"north": {"uv": [2, 0, 4, 2], "texture": "#parts"},
-				"south": {"uv": [10, 0, 12, 2], "texture": "#parts"},
-				"west": {"uv": [4, 2, 10, 4], "texture": "#parts"},
-				"up": {"uv": [4, 0, 10, 2], "rotation": 270, "texture": "#parts"},
-				"down": {"uv": [4, 2, 10, 4], "rotation": 270, "texture": "#parts"}
-			}
-		},
-		{
-			"name": "bottom_inside",
+			"name": "bottom",
 			"from": [3, 0, 3],
 			"to": [13, 1, 13],
 			"faces": {
@@ -123,12 +123,7 @@
 			"from": [3, 3, 3],
 			"to": [13, 3, 13],
 			"faces": {
-				"north": {"uv": [0, 0, 1, 1], "texture": "#borsch"},
-				"east": {"uv": [0, 0, 1, 1], "texture": "#borsch"},
-				"south": {"uv": [0, 0, 1, 1], "texture": "#borsch"},
-				"west": {"uv": [0, 0, 1, 1], "texture": "#borsch"},
-				"up": {"uv": [3, 3, 13, 13], "texture": "#borsch"},
-				"down": {"uv": [0, 0, 1, 1], "texture": "#borsch"}
+				"up": {"uv": [3, 3, 13, 13], "texture": "#broth"}
 			}
 		},
 		{
@@ -136,17 +131,24 @@
 			"from": [3, 3.01, 3],
 			"to": [13, 3.01, 13],
 			"faces": {
-				"north": {"uv": [0, 1, 1, 2], "texture": "#spice"},
-				"east": {"uv": [0, 1, 1, 2], "texture": "#spice"},
-				"south": {"uv": [0, 1, 1, 2], "texture": "#spice"},
-				"west": {"uv": [0, 1, 1, 2], "texture": "#spice"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#spice"},
-				"down": {"uv": [0, 1, 1, 2], "texture": "#spice"}
+				"up": {"uv": [0, 0, 16, 16], "texture": "#spice"}
 			}
 		},
 		{
-			"name": "cucumber2",
-			"from": [5.8, 2.2, 10.5],
+			"name": "cucumber_1",
+			"from": [9.3, 3, 7.3],
+			"to": [10.7, 3.1, 7.9],
+			"faces": {
+				"north": {"uv": [2, 0, 4, 1], "texture": "#ingredients"},
+				"east": {"uv": [2, 0, 4, 1], "texture": "#ingredients"},
+				"south": {"uv": [2, 0, 4, 1], "texture": "#ingredients"},
+				"west": {"uv": [2, 0, 4, 1], "texture": "#ingredients"},
+				"up": {"uv": [2, 0, 4, 1], "texture": "#ingredients"}
+			}
+		},
+		{
+			"name": "cucumber_2",
+			"from": [5.8, 3, 10.5],
 			"to": [6.4, 3.2, 11.9],
 			"rotation": {"angle": 0, "axis": "y", "origin": [6.7, 5.6, 9.6]},
 			"faces": {
@@ -154,49 +156,70 @@
 				"east": {"uv": [2, 0, 4, 1], "texture": "#ingredients"},
 				"south": {"uv": [2, 0, 4, 1], "texture": "#ingredients"},
 				"west": {"uv": [2, 0, 4, 1], "texture": "#ingredients"},
-				"up": {"uv": [2, 0, 4, 1], "rotation": 270, "texture": "#ingredients"},
-				"down": {"uv": [0, 0, 1, 1], "rotation": 90, "texture": "#ingredients"}
+				"up": {"uv": [2, 0, 4, 1], "rotation": 270, "texture": "#ingredients"}
 			}
 		},
 		{
-			"name": "p1",
-			"from": [8, 3, 4],
-			"to": [9.5, 3.2, 4.5],
+			"name": "cucumber_3",
+			"from": [4.2, 3, 5.4],
+			"to": [5.4, 3.2, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5.1, 5.7, 5.2]},
 			"faces": {
-				"north": {"uv": [4, 4, 6, 5], "texture": "#ingredients"},
-				"east": {"uv": [4, 4, 6, 5], "texture": "#ingredients"},
-				"south": {"uv": [4, 4, 6, 5], "texture": "#ingredients"},
-				"west": {"uv": [4, 4, 6, 5], "texture": "#ingredients"},
-				"up": {"uv": [4, 4, 6, 6], "texture": "#ingredients"},
-				"down": {"uv": [0, 0, 2, 2], "texture": "#ingredients"}
+				"north": {"uv": [2, 0, 3, 2], "rotation": 90, "texture": "#ingredients"},
+				"east": {"uv": [2, 0, 3, 2], "rotation": 90, "texture": "#ingredients"},
+				"south": {"uv": [2, 0, 3, 2], "rotation": 90, "texture": "#ingredients"},
+				"west": {"uv": [2, 0, 3, 2], "rotation": 90, "texture": "#ingredients"},
+				"up": {"uv": [2, 0, 3, 2], "rotation": 90, "texture": "#ingredients"}
 			}
 		}
 	],
 	"groups": [
 		{
-			"name": "cooking pot",
+			"name": "cooking_pot",
 			"origin": [8, 8, 8],
+			"scope": 0,
 			"color": 0,
-			"children": [0, 1, 2, 3, 4, 5, 6, 7]
+			"children": [
+				{
+					"name": "edges",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 0,
+					"children": [0, 1, 2, 3]
+				},
+				{
+					"name": "handles",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 0,
+					"children": [4, 5]
+				},
+				6,
+				7
+			]
 		},
 		{
 			"name": "broth",
 			"origin": [8, 8, 8],
+			"scope": 0,
 			"color": 0,
 			"children": [
 				8,
 				9,
 				{
-					"name": "cucumbers",
+					"name": "ingredients",
 					"origin": [8, 8, 8],
+					"scope": 0,
 					"color": 0,
-					"children": [10]
-				},
-				{
-					"name": "potato",
-					"origin": [8, 8, 8],
-					"color": 0,
-					"children": [11]
+					"children": [
+						{
+							"name": "cucumbers",
+							"origin": [8, 8, 8],
+							"scope": 0,
+							"color": 0,
+							"children": [10, 11, 12]
+						}
+					]
 				}
 			]
 		}
