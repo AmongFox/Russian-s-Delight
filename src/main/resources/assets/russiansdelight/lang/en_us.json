@@ -3,6 +3,7 @@
 
   "item.russiansdelight.cucumber": "Cucumber",
   "item.russiansdelight.butter": "Butter",
+  "item.russiansdelight.wooden_mug": "Wooden Mug",
   "item.russiansdelight.kvass": "Kvass",
   "item.russiansdelight.vodka": "Vodka",
   "item.russiansdelight.large_glass_bottle": "Large Glass Bottle",
@@ -33,6 +34,9 @@
 
   "block.russiansdelight.wild_cucumber": "Wild Cucumber",
   "item.russiansdelight.cucumber_seeds": "Cucumber Seeds",
+  "block.russiansdelight.fermentation_barrel": "Fermentation Barrel",
+
+  "container.russiansdelight.fermentation_barrel": "Fermenting Barrel",
 
   "advancement.russiansdelight.root.title": "Russian's Delight",
   "advancement.russiansdelight.root.desc": "Welcome to the world of Russian cuisine!",
@@ -45,5 +49,6 @@
   "advancement.russiansdelight.master_chef.title": "Master Chef",
   "advancement.russiansdelight.master_chef.desc": "Cook all dishes of the Russian feast",
 
-  "russiansdelight.jei.info.wild_cucumber": "Wild cucumbers can be commonly found as a wild plant in jungles and mountain foothills."
+  "russiansdelight.jei.info.wild_cucumber": "Wild cucumbers can be commonly found as a wild plant in jungles and mountain foothills.",
+  "russiansdelight.jei.category.fermenting": "Fermenting"
 }

@@ -1,0 +1,173 @@
+package com.amongfox.russiansdelight.block.entity;
+
+import com.amongfox.russiansdelight.block.FermentationBarrelBlock;
+import com.amongfox.russiansdelight.recipe.FermentationRecipe;
+import com.amongfox.russiansdelight.registry.ModBlockEntities;
+import com.amongfox.russiansdelight.registry.ModRecipeTypes;
+import com.amongfox.russiansdelight.screen.FermentingBarrelMenu;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Optional;
+
+public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEntity implements ContainerData {
+	private static final int CONTAINER_SIZE = 5;
+	private static final int INPUT_END = 4;
+	private static final int OUTPUT_SLOT = 4;
+	private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
+	private int brewTime;
+	private int brewTimeTotal;
+
+	public FermentationBarrelBlockEntity(BlockPos pos, BlockState state) {
+		super(ModBlockEntities.FERMENTATION_BARREL.get(), pos, state);
+	}
+
+	public static void tick(Level level, BlockPos pos, BlockState state, FermentationBarrelBlockEntity blockEntity) {
+		if (level.isClientSide) {
+			return;
+		}
+		RecipeType<FermentationRecipe> recipeType = (RecipeType<FermentationRecipe>) ModRecipeTypes.FERMENTING.get();
+		Optional<FermentationRecipe> recipe = level.getRecipeManager().getRecipeFor(recipeType, blockEntity, level);
+		if (recipe.isPresent() && blockEntity.canCraft(recipe.get(), level)) {
+			if (blockEntity.brewTimeTotal == 0) {
+				blockEntity.brewTimeTotal = recipe.get().getDuration();
+			}
+			blockEntity.brewTime++;
+			if (blockEntity.brewTime >= blockEntity.brewTimeTotal) {
+				blockEntity.craft(recipe.get(), level);
+			}
+		} else {
+			blockEntity.brewTime = 0;
+			blockEntity.brewTimeTotal = 0;
+		}
+		blockEntity.setChanged();
+	}
+
+	private boolean canCraft(FermentationRecipe recipe, Level level) {
+		ItemStack output = this.getItem(OUTPUT_SLOT);
+		if (output.isEmpty()) {
+			return true;
+		}
+		ItemStack result = recipe.getResultItem(level.registryAccess());
+		return ItemStack.isSameItem(output, result) && output.getCount() + result.getCount() <= output.getMaxStackSize();
+	}
+
+	private void craft(FermentationRecipe recipe, Level level) {
+		for (Ingredient ingredient : recipe.getIngredients()) {
+			for (int i = 0; i < INPUT_END; i++) {
+				ItemStack slot = this.getItem(i);
+				if (ingredient.test(slot)) {
+					slot.shrink(1);
+					break;
+				}
+			}
+		}
+		ItemStack output = this.getItem(OUTPUT_SLOT);
+		ItemStack result = recipe.getResultItem(level.registryAccess());
+		if (output.isEmpty()) {
+			this.setItem(OUTPUT_SLOT, result.copy());
+		} else {
+			output.grow(result.getCount());
+		}
+		this.brewTime = 0;
+		this.brewTimeTotal = 0;
+	}
+
+	@Override
+	public int get(int index) {
+		if (index == 0) {
+			return this.brewTime;
+		}
+		if (index == 1) {
+			return this.brewTimeTotal;
+		}
+		return 0;
+	}
+
+	@Override
+	public void set(int index, int value) {
+		if (index == 0) {
+			this.brewTime = value;
+		} else if (index == 1) {
+			this.brewTimeTotal = value;
+		}
+	}
+
+	@Override
+	public int getCount() {
+		return 2;
+	}
+
+	@Override
+	public int getContainerSize() {
+		return CONTAINER_SIZE;
+	}
+
+	@Override
+	protected NonNullList<ItemStack> getItems() {
+		return this.items;
+	}
+
+	@Override
+	protected void setItems(NonNullList<ItemStack> list) {
+		this.items = list;
+	}
+
+	@Override
+	protected Component getDefaultName() {
+		return Component.translatable("container.russiansdelight.fermentation_barrel");
+	}
+
+	@Override
+	protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
+		return new FermentingBarrelMenu(syncId, playerInventory, this, this);
+	}
+
+	@Override
+	public boolean stillValid(Player player) {
+		if (this.level == null || this.level.getBlockEntity(this.worldPosition) != this) {
+			return false;
+		}
+		return player.distanceToSqr(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 0.5, this.worldPosition.getZ() + 0.5) <= 64.0;
+	}
+
+	@Override
+	public void startOpen(Player player) {
+		if (!this.remove && !player.isSpectator()) {
+			FermentationBarrelBlock.setOpen(this.level, this.worldPosition, this.getBlockState(), true);
+		}
+	}
+
+	@Override
+	public void stopOpen(Player player) {
+		if (!this.remove && !player.isSpectator()) {
+			FermentationBarrelBlock.setOpen(this.level, this.worldPosition, this.getBlockState(), false);
+		}
+	}
+
+	@Override
+	protected void saveAdditional(CompoundTag tag) {
+		super.saveAdditional(tag);
+		tag.putInt("BrewTime", this.brewTime);
+		tag.putInt("BrewTimeTotal", this.brewTimeTotal);
+	}
+
+	@Override
+	public void load(CompoundTag tag) {
+		super.load(tag);
+		this.brewTime = tag.getInt("BrewTime");
+		this.brewTimeTotal = tag.getInt("BrewTimeTotal");
+	}
+}

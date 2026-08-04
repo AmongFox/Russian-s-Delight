@@ -1,8 +1,12 @@
 package com.amongfox.russiansdelight;
 
+import com.amongfox.russiansdelight.registry.ModBlockEntities;
 import com.amongfox.russiansdelight.registry.ModBlocks;
 import com.amongfox.russiansdelight.registry.ModItemsGroup;
 import com.amongfox.russiansdelight.registry.ModItems;
+import com.amongfox.russiansdelight.registry.ModMenus;
+import com.amongfox.russiansdelight.registry.ModRecipeSerializers;
+import com.amongfox.russiansdelight.registry.ModRecipeTypes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -41,7 +45,11 @@ public class RussiansDelight implements ModInitializer {
 				.build());
 
 		ModBlocks.registerAll();
+		ModBlockEntities.registerAll();
 		ModItems.registerAll();
+		ModMenus.registerAll();
+		ModRecipeTypes.registerAll();
+		ModRecipeSerializers.registerAll();
 		ModItemsGroup.registerItemGroups();
 		registerCompostables();
 		registerWorldgen();

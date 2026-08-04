@@ -42,7 +42,10 @@ public enum ModBlocks {
 			FabricBlockSettings.copyOf(Blocks.TALL_GRASS).noCollision().breakInstantly().sounds(SoundType.GRASS)
 	), true),
 	BUDDING_CUCUMBER_CROP("budding_cucumber_crop", () -> new BuddingCucumberBlock(Block.Properties.copy(Blocks.WHEAT)), true),
-	CUCUMBER_CROP("cucumbers", () -> new CucumberVineBlock(Block.Properties.copy(Blocks.WHEAT)), true);
+	CUCUMBER_CROP("cucumbers", () -> new CucumberVineBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+
+	// Machines
+	FERMENTATION_BARREL("fermentation_barrel", FermentationBarrelBlock::new, false);
 
 	private final String pathName;
 	private final Supplier<Block> blockSupplier;

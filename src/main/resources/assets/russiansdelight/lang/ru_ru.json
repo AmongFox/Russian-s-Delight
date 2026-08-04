@@ -3,6 +3,7 @@
 
   "item.russiansdelight.cucumber": "Огурец",
   "item.russiansdelight.butter": "Сливочное масло",
+  "item.russiansdelight.wooden_mug": "Деревянная кружка",
   "item.russiansdelight.kvass": "Квас",
   "item.russiansdelight.vodka": "Водка",
   "item.russiansdelight.large_glass_bottle": "Большая стеклянная бутылка",
@@ -33,6 +34,9 @@
 
   "block.russiansdelight.wild_cucumber": "Дикий огурец",
   "item.russiansdelight.cucumber_seeds": "Семена огурца",
+  "block.russiansdelight.fermentation_barrel": "Бродильная бочка",
+
+  "container.russiansdelight.fermentation_barrel": "Бродильная бочка",
 
   "advancement.russiansdelight.root.title": "Russian's Delight",
   "advancement.russiansdelight.root.desc": "Добро пожаловать в мир русской кухни!",
@@ -45,5 +49,6 @@
   "advancement.russiansdelight.master_chef.title": "Шеф-повар",
   "advancement.russiansdelight.master_chef.desc": "Свари все блюда русского застолья",
 
-  "russiansdelight.jei.info.wild_cucumber": "Дикие огурцы можно найти в джунглях и предгорьях."
+  "russiansdelight.jei.info.wild_cucumber": "Дикие огурцы можно найти в джунглях и предгорьях.",
+  "russiansdelight.jei.category.fermenting": "Брожение"
 }

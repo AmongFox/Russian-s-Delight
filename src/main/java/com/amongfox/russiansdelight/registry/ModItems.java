@@ -22,6 +22,7 @@ public enum ModItems {
 	// Other
 	CUCUMBER("cucumber", () -> new Item(createFoodSettings(FoodItem.CUCUMBER))),
 	BUTTER("butter", () -> new Item(createFoodSettings(FoodItem.BUTTER))),
+	WOODEN_MUG("wooden_mug", () -> new Item(new Item.Properties().stacksTo(16))),
 
 	// Drinks
 	KVASS("kvass", () -> new KvassItem(createFoodSettings(FoodItem.KVASS).stacksTo(16))),
@@ -76,7 +77,10 @@ public enum ModItems {
 			super.removeFromBlockToItemMap(blockToItemMap, itemIn);
 			blockToItemMap.remove(ModBlocks.CUCUMBER_CROP.get());
 		}
-	});
+	}),
+
+	// Machines
+	FERMENTATION_BARREL("fermentation_barrel", () -> new BlockItem(ModBlocks.FERMENTATION_BARREL.get(), new Item.Properties()));
 
 	private final String pathName;
 	private final Supplier<Item> itemSupplier;
