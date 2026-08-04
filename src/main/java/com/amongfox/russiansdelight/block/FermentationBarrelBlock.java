@@ -38,11 +38,12 @@ import org.jetbrains.annotations.Nullable;
 public class FermentationBarrelBlock extends BaseEntityBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
-	protected static final VoxelShape SHAPE = Block.box(2.0, 1.0, 2.0, 14.0, 12.0, 14.0);
+	public static final BooleanProperty FERMENTING = BooleanProperty.create("fermenting");
+	protected static final VoxelShape SHAPE = Block.box(2.0, 1.0, 2.0, 14.0, 13.0, 14.0);
 
 	public FermentationBarrelBlock() {
 		super(FabricBlockSettings.copyOf(Blocks.BARREL).noOcclusion());
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false).setValue(FERMENTING, false));
 	}
 
 	@Override
@@ -90,7 +91,7 @@ public class FermentationBarrelBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, OPEN);
+		builder.add(FACING, OPEN, FERMENTING);
 	}
 
 	@Nullable
@@ -102,6 +103,9 @@ public class FermentationBarrelBlock extends BaseEntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+		if (world.isClientSide) {
+			return createTickerHelper(type, ModBlockEntities.FERMENTATION_BARREL.get(), FermentationBarrelBlockEntity::animationTick);
+		}
 		return createTickerHelper(type, ModBlockEntities.FERMENTATION_BARREL.get(), FermentationBarrelBlockEntity::tick);
 	}
 

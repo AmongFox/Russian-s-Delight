@@ -3,12 +3,16 @@ package com.amongfox.russiansdelight.block.entity;
 import com.amongfox.russiansdelight.block.FermentationBarrelBlock;
 import com.amongfox.russiansdelight.recipe.FermentationRecipe;
 import com.amongfox.russiansdelight.registry.ModBlockEntities;
+import com.amongfox.russiansdelight.registry.ModParticles;
 import com.amongfox.russiansdelight.registry.ModRecipeTypes;
+import com.amongfox.russiansdelight.registry.ModSounds;
 import com.amongfox.russiansdelight.screen.FermentingBarrelMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -29,6 +33,11 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
 	private int brewTime;
 	private int brewTimeTotal;
+	private int soundTimer;
+
+	public boolean isFermenting() {
+		return this.getBlockState().getValue(FermentationBarrelBlock.FERMENTING);
+	}
 
 	public FermentationBarrelBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntities.FERMENTATION_BARREL.get(), pos, state);
@@ -40,7 +49,8 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 		}
 		RecipeType<FermentationRecipe> recipeType = (RecipeType<FermentationRecipe>) ModRecipeTypes.FERMENTING.get();
 		Optional<FermentationRecipe> recipe = level.getRecipeManager().getRecipeFor(recipeType, blockEntity, level);
-		if (recipe.isPresent() && blockEntity.canCraft(recipe.get(), level)) {
+		boolean fermenting = recipe.isPresent() && blockEntity.canCraft(recipe.get(), level);
+		if (fermenting) {
 			if (blockEntity.brewTimeTotal == 0) {
 				blockEntity.brewTimeTotal = recipe.get().getDuration();
 			}
@@ -52,7 +62,28 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 			blockEntity.brewTime = 0;
 			blockEntity.brewTimeTotal = 0;
 		}
+		if (state.getValue(FermentationBarrelBlock.FERMENTING) != fermenting) {
+			level.setBlock(pos, state.setValue(FermentationBarrelBlock.FERMENTING, fermenting), 3);
+		}
 		blockEntity.setChanged();
+	}
+
+	public static void animationTick(Level level, BlockPos pos, BlockState state, FermentationBarrelBlockEntity blockEntity) {
+		if (!blockEntity.isFermenting()) {
+			blockEntity.soundTimer = 0;
+			return;
+		}
+		RandomSource random = level.random;
+		if (++blockEntity.soundTimer >= 100) {
+			blockEntity.soundTimer = 0;
+			for (int i = 0; i < 4; i++) {
+				double x = pos.getX() + 0.5D + (random.nextDouble() * 0.3D - 0.15D);
+				double y = pos.getY() + 0.85D;
+				double z = pos.getZ() + 0.5D + (random.nextDouble() * 0.3D - 0.15D);
+				level.addParticle(ModParticles.FERMENTATION_BARREL_BUBBLE.get(), x, y, z, 0.0D, 0.1D, 0.0D);
+			}
+			level.playLocalSound(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, ModSounds.FERMENTATION_BARREL_BUBBLE.get(), SoundSource.BLOCKS, 0.2F, random.nextFloat() * 0.2F + 0.9F, false);
+		}
 	}
 
 	private boolean canCraft(FermentationRecipe recipe, Level level) {
