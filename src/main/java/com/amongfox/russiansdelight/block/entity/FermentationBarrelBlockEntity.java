@@ -24,6 +24,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -148,27 +149,27 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	}
 
 	@Override
-	protected NonNullList<ItemStack> getItems() {
+	protected @NotNull NonNullList<ItemStack> getItems() {
 		return this.items;
 	}
 
 	@Override
-	protected void setItems(NonNullList<ItemStack> list) {
+	protected void setItems(@NotNull NonNullList<ItemStack> list) {
 		this.items = list;
 	}
 
 	@Override
-	protected Component getDefaultName() {
+	protected @NotNull Component getDefaultName() {
 		return Component.translatable("container.russiansdelight.fermentation_barrel");
 	}
 
 	@Override
-	protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
+	protected @NotNull AbstractContainerMenu createMenu(int syncId, @NotNull Inventory playerInventory) {
 		return new FermentingBarrelMenu(syncId, playerInventory, this, this);
 	}
 
 	@Override
-	public boolean stillValid(Player player) {
+	public boolean stillValid(@NotNull Player player) {
 		if (this.level == null || this.level.getBlockEntity(this.worldPosition) != this) {
 			return false;
 		}
@@ -176,21 +177,21 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	}
 
 	@Override
-	public void startOpen(Player player) {
+	public void startOpen(@NotNull Player player) {
 		if (!this.remove && !player.isSpectator()) {
 			FermentationBarrelBlock.setOpen(this.level, this.worldPosition, this.getBlockState(), true);
 		}
 	}
 
 	@Override
-	public void stopOpen(Player player) {
+	public void stopOpen(@NotNull Player player) {
 		if (!this.remove && !player.isSpectator()) {
 			FermentationBarrelBlock.setOpen(this.level, this.worldPosition, this.getBlockState(), false);
 		}
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag) {
+	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
 		if (!this.trySaveLootTable(tag)) {
 			ContainerHelper.saveAllItems(tag, this.items);
@@ -200,7 +201,7 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	}
 
 	@Override
-	public void load(CompoundTag tag) {
+	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 		this.items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
 		if (!this.tryLoadLootTable(tag)) {

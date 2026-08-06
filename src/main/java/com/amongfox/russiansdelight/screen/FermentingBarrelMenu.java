@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class FermentingBarrelMenu extends AbstractContainerMenu {
 	private static final int INPUT_SLOTS = 4;
@@ -38,7 +39,7 @@ public class FermentingBarrelMenu extends AbstractContainerMenu {
 		this.addSlot(new Slot(container, 3, 44, 43));
 		this.addSlot(new Slot(container, OUTPUT_SLOT, 107, 34) {
 			@Override
-			public boolean mayPlace(ItemStack stack) {
+			public boolean mayPlace(@NotNull ItemStack stack) {
 				return false;
 			}
 		});
@@ -67,10 +68,10 @@ public class FermentingBarrelMenu extends AbstractContainerMenu {
 	}
 
 	@Override
-	public ItemStack quickMoveStack(Player player, int index) {
+	public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
 		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
-		if (slot != null && slot.hasItem()) {
+		if (slot.hasItem()) {
 			ItemStack stack = slot.getItem();
 			itemStack = stack.copy();
 			if (index < PLAYER_INV_START) {
@@ -97,12 +98,12 @@ public class FermentingBarrelMenu extends AbstractContainerMenu {
 	}
 
 	@Override
-	public boolean stillValid(Player player) {
+	public boolean stillValid(@NotNull Player player) {
 		return this.container.stillValid(player);
 	}
 
 	@Override
-	public void removed(Player player) {
+	public void removed(@NotNull Player player) {
 		super.removed(player);
 		this.container.stopOpen(player);
 	}

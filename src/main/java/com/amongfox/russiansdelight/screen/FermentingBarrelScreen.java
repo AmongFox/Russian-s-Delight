@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public class FermentingBarrelScreen extends AbstractContainerScreen<FermentingBarrelMenu> {
 	private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(RussiansDelight.MOD_ID, "textures/gui/fermentation_barrel_gui.png");
@@ -23,7 +24,7 @@ public class FermentingBarrelScreen extends AbstractContainerScreen<FermentingBa
 	}
 
 	@Override
-	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		this.renderBackground(guiGraphics);
 		super.render(guiGraphics, mouseX, mouseY, partialTick);
 		this.renderTooltip(guiGraphics, mouseX, mouseY);
@@ -50,7 +51,7 @@ public class FermentingBarrelScreen extends AbstractContainerScreen<FermentingBa
 	}
 
 	@Override
-	protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+	protected void renderTooltip(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
 		super.renderTooltip(guiGraphics, mouseX, mouseY);
 		if (this.isHovering(SCALE_X, SCALE_Y, SCALE_WIDTH, SCALE_HEIGHT, mouseX, mouseY)) {
 			int remaining = this.menu.getRemainingTime();
