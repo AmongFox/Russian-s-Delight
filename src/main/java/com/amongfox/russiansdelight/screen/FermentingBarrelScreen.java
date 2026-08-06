@@ -48,4 +48,16 @@ public class FermentingBarrelScreen extends AbstractContainerScreen<FermentingBa
 			);
 		}
 	}
+
+	@Override
+	protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		super.renderTooltip(guiGraphics, mouseX, mouseY);
+		if (this.isHovering(SCALE_X, SCALE_Y, SCALE_WIDTH, SCALE_HEIGHT, mouseX, mouseY)) {
+			int remaining = this.menu.getRemainingTime();
+			if (remaining > 0) {
+			int seconds = Math.max(1, (remaining + 19) / 20);
+			guiGraphics.renderTooltip(this.font, Component.translatable("russiansdelight.gui.fermentation.time_left", seconds), mouseX, mouseY - 16);
+			}
+		}
+	}
 }

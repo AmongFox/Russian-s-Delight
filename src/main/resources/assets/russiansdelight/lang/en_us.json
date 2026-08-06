@@ -40,6 +40,8 @@
 
   "container.russiansdelight.fermentation_barrel": "Fermenting Barrel",
 
+  "russiansdelight.gui.fermentation.time_left": "Time left: %s s",
+
   "advancement.russiansdelight.root.title": "Russian's Delight",
   "advancement.russiansdelight.root.desc": "Welcome to the world of Russian cuisine!",
   "advancement.russiansdelight.maslenitsa.title": "Maslenitsa!",

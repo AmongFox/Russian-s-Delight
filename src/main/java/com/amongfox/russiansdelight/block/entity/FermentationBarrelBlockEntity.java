@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -191,6 +192,9 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
 		super.saveAdditional(tag);
+		if (!this.trySaveLootTable(tag)) {
+			ContainerHelper.saveAllItems(tag, this.items);
+		}
 		tag.putInt("BrewTime", this.brewTime);
 		tag.putInt("BrewTimeTotal", this.brewTimeTotal);
 	}
@@ -198,6 +202,10 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	@Override
 	public void load(CompoundTag tag) {
 		super.load(tag);
+		this.items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
+		if (!this.tryLoadLootTable(tag)) {
+			ContainerHelper.loadAllItems(tag, this.items);
+		}
 		this.brewTime = tag.getInt("BrewTime");
 		this.brewTimeTotal = tag.getInt("BrewTimeTotal");
 	}

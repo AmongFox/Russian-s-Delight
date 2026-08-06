@@ -40,6 +40,8 @@
 
   "container.russiansdelight.fermentation_barrel": "Бродильная бочка",
 
+  "russiansdelight.gui.fermentation.time_left": "Осталось: %s сек",
+
   "advancement.russiansdelight.root.title": "Russian's Delight",
   "advancement.russiansdelight.root.desc": "Добро пожаловать в мир русской кухни!",
   "advancement.russiansdelight.maslenitsa.title": "Масленица!",

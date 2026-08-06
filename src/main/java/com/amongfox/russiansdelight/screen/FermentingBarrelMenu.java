@@ -58,6 +58,14 @@ public class FermentingBarrelMenu extends AbstractContainerMenu {
 		return total <= 0 ? 0.0F : Math.min(1.0F, (float) data.get(0) / (float) total);
 	}
 
+	public int getRemainingTime() {
+		int total = data.get(1);
+		if (total <= 0) {
+			return 0;
+		}
+		return Math.max(0, total - data.get(0));
+	}
+
 	@Override
 	public ItemStack quickMoveStack(Player player, int index) {
 		ItemStack itemStack = ItemStack.EMPTY;
