@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "p": {
+      "tag": "minecraft:planks"
+    },
+    "s": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "b": {
+      "item": "minecraft:barrel"
+    }
+  },
+  "pattern": [
+    "sss",
+    "pbp",
+    "psp"
+  ],
+  "result": {
+    "item": "russiansdelight:fermentation_barrel"
+  }
+}

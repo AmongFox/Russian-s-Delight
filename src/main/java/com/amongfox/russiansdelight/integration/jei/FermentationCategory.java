@@ -19,38 +19,38 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class FermentationCategory implements IRecipeCategory<FermentationRecipe> {
 	private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(RussiansDelight.MOD_ID, "textures/gui/fermentation_barrel_gui.png");
-	private static final int DEFAULT_DURATION = 120 * 20;
+	private static final int DEFAULT_DURATION = 240 * 20;
 
 	private final IDrawable background;
 	private final IDrawable icon;
-	private final IDrawableStatic filledScale;
-	private final IDrawableAnimated animatedScale;
+    private final IDrawableAnimated animatedScale;
 
 	public FermentationCategory(IGuiHelper helper) {
-		this.background = helper.createDrawable(GUI_TEXTURE, 0, 0, 136, 64);
+		this.background = helper.createDrawable(GUI_TEXTURE, 4, 21, 156, 54);
 		this.icon = helper.createDrawableItemStack(new ItemStack(ModItems.FERMENTATION_BARREL.get()));
-		this.filledScale = helper.createDrawable(GUI_TEXTURE, 176, 16, 8, 36);
+        IDrawableStatic filledScale = helper.createDrawable(GUI_TEXTURE, 176, 16, 8, 36);
 		this.animatedScale = helper.createAnimatedDrawable(
-				this.filledScale, DEFAULT_DURATION, IDrawableAnimated.StartDirection.BOTTOM, false);
+                filledScale, DEFAULT_DURATION, IDrawableAnimated.StartDirection.BOTTOM, false);
 	}
 
 	@Override
-	public RecipeType<FermentationRecipe> getRecipeType() {
+	public @NotNull RecipeType<FermentationRecipe> getRecipeType() {
 		return JEIPlugin.FERMENTING_TYPE;
 	}
 
 	@Override
-	public Component getTitle() {
+	public @NotNull Component getTitle() {
 		return Component.translatable("russiansdelight.jei.category.fermenting");
 	}
 
 	@Override
-	public IDrawable getBackground() {
+	public @NotNull IDrawable getBackground() {
 		return background;
 	}
 
@@ -60,8 +60,8 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, FermentationRecipe recipe, IFocusGroup focuses) {
-		int[][] inputPositions = {{26, 25}, {44, 25}, {26, 43}, {44, 43}};
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, FermentationRecipe recipe, @NotNull IFocusGroup focuses) {
+		int[][] inputPositions = {{22, 4}, {40, 4}, {22, 22}, {40, 22}};
 		List<Ingredient> ingredients = recipe.getIngredients();
 		for (int i = 0; i < inputPositions.length; i++) {
 			if (i < ingredients.size()) {
@@ -69,12 +69,16 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
 						.addIngredients(ingredients.get(i));
 			}
 		}
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 107, 34)
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 103, 13)
+				.addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
+		builder.addSlot(RecipeIngredientRole.INPUT, 103, 34)
+				.addIngredients(recipe.getContainer());
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 34)
 				.addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
 	}
 
 	@Override
-	public void draw(FermentationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-		animatedScale.draw(guiGraphics, 64, 24);
+	public void draw(@NotNull FermentationRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		animatedScale.draw(guiGraphics, 60, 3);
 	}
 }

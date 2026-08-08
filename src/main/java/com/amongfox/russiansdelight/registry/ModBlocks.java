@@ -43,6 +43,12 @@ public enum ModBlocks {
 	), true),
 	BUDDING_CUCUMBER_CROP("budding_cucumber_crop", () -> new BuddingCucumberBlock(Block.Properties.copy(Blocks.WHEAT)), true),
 	CUCUMBER_CROP("cucumbers", () -> new CucumberVineBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+	WILD_BUCKWHEAT("wild_buckwheat", () -> new WildBuckwheatBlock(
+			MobEffects.HUNGER, 6,
+			FabricBlockSettings.copyOf(Blocks.TALL_GRASS).noCollision().breakInstantly().sounds(SoundType.GRASS)
+	), true),
+	BUDDING_BUCKWHEAT_CROP("budding_buckwheat_crop", () -> new BuddingBuckwheatBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+	BUCKWHEAT_CROP("buckwheat_crop", () -> new BuckwheatCropBlock(Block.Properties.copy(Blocks.WHEAT)), true),
 
 	// Machines
 	FERMENTATION_BARREL("fermentation_barrel", FermentationBarrelBlock::new, false);

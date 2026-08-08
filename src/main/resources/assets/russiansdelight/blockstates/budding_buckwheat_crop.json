@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "age=0": { "model": "russiansdelight:block/budding_buckwheat_stage0" },
+    "age=1": { "model": "russiansdelight:block/budding_buckwheat_stage1" },
+    "age=2": { "model": "russiansdelight:block/budding_buckwheat_stage2" },
+    "age=3": { "model": "russiansdelight:block/budding_buckwheat_stage3" },
+    "age=4": { "model": "russiansdelight:block/budding_buckwheat_stage3" }
+  }
+}

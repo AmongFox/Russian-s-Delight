@@ -12,10 +12,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import org.jetbrains.annotations.NotNull;
 
 public class FermentationRecipeSerializer implements RecipeSerializer<FermentationRecipe> {
 	@Override
-	public FermentationRecipe fromJson(ResourceLocation id, JsonObject json) {
+	public @NotNull FermentationRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 		NonNullList<Ingredient> ingredients = NonNullList.create();
 		JsonArray ingredientsJson = GsonHelper.getAsJsonArray(json, "ingredients");
 		for (JsonElement element : ingredientsJson) {
@@ -23,11 +24,12 @@ public class FermentationRecipeSerializer implements RecipeSerializer<Fermentati
 		}
 		ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
 		int duration = GsonHelper.getAsInt(json, "duration");
-		return new FermentationRecipe(id, ingredients, output, duration);
+		Ingredient container = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "container"));
+		return new FermentationRecipe(id, ingredients, output, duration, container);
 	}
 
 	@Override
-	public FermentationRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
+	public @NotNull FermentationRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buffer) {
 		int size = buffer.readVarInt();
 		NonNullList<Ingredient> ingredients = NonNullList.create();
 		for (int i = 0; i < size; i++) {
@@ -35,16 +37,18 @@ public class FermentationRecipeSerializer implements RecipeSerializer<Fermentati
 		}
 		ItemStack output = buffer.readItem();
 		int duration = buffer.readVarInt();
-		return new FermentationRecipe(id, ingredients, output, duration);
+		Ingredient container = Ingredient.fromNetwork(buffer);
+		return new FermentationRecipe(id, ingredients, output, duration, container);
 	}
 
 	@Override
-	public void toNetwork(FriendlyByteBuf buffer, FermentationRecipe recipe) {
+	public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull FermentationRecipe recipe) {
 		buffer.writeVarInt(recipe.getIngredients().size());
 		for (Ingredient ingredient : recipe.getIngredients()) {
 			ingredient.toNetwork(buffer);
 		}
 		buffer.writeItem(recipe.getResultItem(RegistryAccess.EMPTY));
 		buffer.writeVarInt(recipe.getDuration());
+		recipe.getContainer().toNetwork(buffer);
 	}
 }

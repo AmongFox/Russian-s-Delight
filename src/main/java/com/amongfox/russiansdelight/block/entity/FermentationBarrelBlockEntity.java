@@ -14,11 +14,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -29,9 +31,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEntity implements ContainerData {
-	private static final int CONTAINER_SIZE = 5;
+	private static final int CONTAINER_SIZE = 7;
 	private static final int INPUT_END = 4;
-	private static final int OUTPUT_SLOT = 4;
+	private static final int RESULT_SLOT = 4;
+	private static final int CONTAINER_SLOT = 5;
+	private static final int OUTPUT_SLOT = 6;
 	private NonNullList<ItemStack> items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
 	private int brewTime;
 	private int brewTimeTotal;
@@ -49,7 +53,7 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 		if (level.isClientSide) {
 			return;
 		}
-		RecipeType<FermentationRecipe> recipeType = (RecipeType<FermentationRecipe>) ModRecipeTypes.FERMENTING.get();
+		RecipeType<FermentationRecipe> recipeType = ModRecipeTypes.FERMENTING.get();
 		Optional<FermentationRecipe> recipe = level.getRecipeManager().getRecipeFor(recipeType, blockEntity, level);
 		boolean fermenting = recipe.isPresent() && blockEntity.canCraft(recipe.get(), level);
 		if (fermenting) {
@@ -64,6 +68,7 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 			blockEntity.brewTime = 0;
 			blockEntity.brewTimeTotal = 0;
 		}
+		blockEntity.moveResultToOutput();
 		if (state.getValue(FermentationBarrelBlock.FERMENTING) != fermenting) {
 			level.setBlock(pos, state.setValue(FermentationBarrelBlock.FERMENTING, fermenting), 3);
 		}
@@ -89,7 +94,7 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	}
 
 	private boolean canCraft(FermentationRecipe recipe, Level level) {
-		ItemStack output = this.getItem(OUTPUT_SLOT);
+		ItemStack output = this.getItem(RESULT_SLOT);
 		if (output.isEmpty()) {
 			return true;
 		}
@@ -102,20 +107,64 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 			for (int i = 0; i < INPUT_END; i++) {
 				ItemStack slot = this.getItem(i);
 				if (ingredient.test(slot)) {
+					boolean isWaterBucket = slot.is(Items.WATER_BUCKET);
 					slot.shrink(1);
+					if (isWaterBucket) {
+						Containers.dropItemStack(level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), new ItemStack(Items.BUCKET));
+					}
 					break;
 				}
 			}
 		}
-		ItemStack output = this.getItem(OUTPUT_SLOT);
+		ItemStack output = this.getItem(RESULT_SLOT);
 		ItemStack result = recipe.getResultItem(level.registryAccess());
 		if (output.isEmpty()) {
-			this.setItem(OUTPUT_SLOT, result.copy());
+			this.setItem(RESULT_SLOT, result.copy());
 		} else {
 			output.grow(result.getCount());
 		}
 		this.brewTime = 0;
 		this.brewTimeTotal = 0;
+	}
+
+	private void moveResultToOutput() {
+		ItemStack resultStack = this.getItem(RESULT_SLOT);
+		ItemStack containerStack = this.getItem(CONTAINER_SLOT);
+		ItemStack outputStack = this.getItem(OUTPUT_SLOT);
+		if (resultStack.isEmpty() || containerStack.isEmpty()) {
+			return;
+		}
+		if (!containerMatches(resultStack, containerStack)) {
+			return;
+		}
+		if (!outputStack.isEmpty() && !ItemStack.isSameItem(outputStack, resultStack)) {
+			return;
+		}
+		int canMove = Math.min(resultStack.getCount(), containerStack.getCount());
+		canMove = Math.min(canMove, outputStack.isEmpty() ? resultStack.getMaxStackSize() : outputStack.getMaxStackSize() - outputStack.getCount());
+		if (canMove <= 0) {
+			return;
+		}
+		if (outputStack.isEmpty()) {
+			this.setItem(OUTPUT_SLOT, resultStack.split(canMove));
+		} else {
+			resultStack.shrink(canMove);
+			outputStack.grow(canMove);
+		}
+		containerStack.shrink(canMove);
+	}
+
+	private boolean containerMatches(ItemStack resultStack, ItemStack containerStack) {
+		if (this.level == null) {
+			return false;
+		}
+		RecipeType<FermentationRecipe> recipeType = ModRecipeTypes.FERMENTING.get();
+		for (FermentationRecipe recipe : this.level.getRecipeManager().getAllRecipesFor(recipeType)) {
+			if (ItemStack.isSameItem(recipe.getResultItem(this.level.registryAccess()), resultStack)) {
+				return recipe.getContainer().test(containerStack);
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -179,14 +228,16 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	@Override
 	public void startOpen(@NotNull Player player) {
 		if (!this.remove && !player.isSpectator()) {
-			FermentationBarrelBlock.setOpen(this.level, this.worldPosition, this.getBlockState(), true);
+            assert this.level != null;
+            FermentationBarrelBlock.setOpen(this.level, this.worldPosition, this.getBlockState(), true);
 		}
 	}
 
 	@Override
 	public void stopOpen(@NotNull Player player) {
 		if (!this.remove && !player.isSpectator()) {
-			FermentationBarrelBlock.setOpen(this.level, this.worldPosition, this.getBlockState(), false);
+            assert this.level != null;
+            FermentationBarrelBlock.setOpen(this.level, this.worldPosition, this.getBlockState(), false);
 		}
 	}
 

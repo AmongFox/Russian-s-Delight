@@ -49,6 +49,8 @@ public enum ModItems {
 	BREAD_AND_BUTTER("bread_and_butter", () -> new Item(createFoodSettings(FoodItem.BREAD_AND_BUTTER))),
 	SEMOLINA("semolina", () -> new Item(new Item.Properties())),
 	SEMOLINA_PORRIDGE("bowl_of_semolina_porridge", () -> new Item(createFoodSettings(FoodItem.SEMOLINA_PORRIDGE).stacksTo(1))),
+	BUCKWHEAT("buckwheat", () -> new Item(new Item.Properties())),
+	BUCKWHEAT_PORRIDGE("bowl_of_buckwheat_porridge", () -> new Item(createFoodSettings(FoodItem.BUCKWHEAT_PORRIDGE).stacksTo(1))),
 
 	// Blocks
 	SMALL_POT("small_pot", () -> new BlockItem(ModBlocks.SMALL_POT.get(), new Item.Properties())),
@@ -64,6 +66,8 @@ public enum ModItems {
 
 	// Crops
 	WILD_CUCUMBER("wild_cucumber", () -> new BlockItem(ModBlocks.WILD_CUCUMBER.get(), new Item.Properties())),
+	WILD_BUCKWHEAT("wild_buckwheat", () -> new BlockItem(ModBlocks.WILD_BUCKWHEAT.get(), new Item.Properties())),
+	BUCKWHEAT_SEEDS("buckwheat_seeds", () -> new ItemNameBlockItem(ModBlocks.BUDDING_BUCKWHEAT_CROP.get(), new Item.Properties())),
 	CUCUMBER_SEEDS("cucumber_seeds", () -> new ItemNameBlockItem(ModBlocks.BUDDING_CUCUMBER_CROP.get(), new Item.Properties())
 	{
 		@Override

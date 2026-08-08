@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "minecraft:glass"
+    }
+  },
+  "pattern": [
+    "g g",
+    "g g",
+    " g "
+  ],
+  "result": {
+    "item": "russiansdelight:large_glass_bottle"
+  }
+}

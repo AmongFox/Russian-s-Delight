@@ -36,7 +36,8 @@ public enum FoodItem {
 	ROAST(14, 0.8F),
 	PELMENI(6, 0.8F),
 	DUMPLING(1, 0.5F),
-	SEMOLINA_PORRIDGE(10, 0.7F);
+	SEMOLINA_PORRIDGE(10, 0.7F),
+	BUCKWHEAT_PORRIDGE(10, 0.7F);
 
 	private final Supplier<FoodProperties> food;
 

@@ -36,6 +36,9 @@ public class RussiansDelight implements ModInitializer {
 	private static final ResourceKey<PlacedFeature> PATCH_WILD_CUCUMBER = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MOD_ID, "patch_wild_cucumber"));
 	private static final TagKey<Biome> WILD_CUCUMBER_WHITELIST = TagKey.create(Registries.BIOME, new ResourceLocation(MOD_ID, "wild_cucumber_whitelist"));
 	private static final TagKey<Biome> WILD_CUCUMBER_BLACKLIST = TagKey.create(Registries.BIOME, new ResourceLocation(MOD_ID, "wild_cucumber_blacklist"));
+	private static final ResourceKey<PlacedFeature> PATCH_WILD_BUCKWHEAT = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(MOD_ID, "patch_wild_buckwheat"));
+	private static final TagKey<Biome> WILD_BUCKWHEAT_WHITELIST = TagKey.create(Registries.BIOME, new ResourceLocation(MOD_ID, "wild_buckwheat_whitelist"));
+	private static final TagKey<Biome> WILD_BUCKWHEAT_BLACKLIST = TagKey.create(Registries.BIOME, new ResourceLocation(MOD_ID, "wild_buckwheat_blacklist"));
 
 	@Override
 	public void onInitialize() {
@@ -71,11 +74,23 @@ public class RussiansDelight implements ModInitializer {
 			PATCH_WILD_CUCUMBER
 		);
 		LOGGER.info("Worldgen registered for wild cucumber");
+
+		BiomeModifications.addFeature(
+			context -> {
+				Holder<Biome> biome = context.getBiomeRegistryEntry();
+				return biome.is(WILD_BUCKWHEAT_WHITELIST) && !biome.is(WILD_BUCKWHEAT_BLACKLIST);
+			},
+			GenerationStep.Decoration.VEGETAL_DECORATION,
+			PATCH_WILD_BUCKWHEAT
+		);
+		LOGGER.info("Worldgen registered for wild buckwheat");
 	}
 
 	private static void registerCompostables() {
 		CompostingChanceRegistry registry = CompostingChanceRegistry.INSTANCE;
 		registry.add(ModItems.CUCUMBER_SEEDS.get(), 0.3f);
 		registry.add(ModItems.CUCUMBER.get(), 0.65f);
+		registry.add(ModItems.BUCKWHEAT_SEEDS.get(), 0.3f);
+		registry.add(ModItems.BUCKWHEAT.get(), 0.65f);
 	}
 }

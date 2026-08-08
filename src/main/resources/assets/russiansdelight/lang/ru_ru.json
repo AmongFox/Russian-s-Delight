@@ -8,10 +8,15 @@
   "item.russiansdelight.wooden_mug": "Деревянная кружка",
   "item.russiansdelight.kvass": "Квас",
   "item.russiansdelight.vodka": "Водка",
+  "russiansdelight.tooltip.kvass": "Охлаждает и восстанавливает часть здоровья",
+  "russiansdelight.tooltip.vodka": "Несёт серьёзные увечья",
   "item.russiansdelight.large_glass_bottle": "Большая стеклянная бутылка",
   "item.russiansdelight.bread_and_butter": "Хлеб с маслом",
   "item.russiansdelight.semolina": "Манная крупа",
   "item.russiansdelight.bowl_of_semolina_porridge": "Манная каша",
+  "item.russiansdelight.buckwheat": "Гречневая крупа",
+  "item.russiansdelight.bowl_of_buckwheat_porridge": "Гречневая каша",
+  "item.russiansdelight.buckwheat_seeds": "Семена гречихи",
   "item.russiansdelight.cabbage_pie": "Пирожок с капустой",
   "item.russiansdelight.berry_pie": "Ватрушка с ягодами",
 
@@ -21,6 +26,7 @@
   "item.russiansdelight.bowl_of_rassolnik": "Рассольник",
   "item.russiansdelight.bowl_of_pelmeni": "Миска пельменей",
   "item.russiansdelight.bowl_of_roast": "Миска жаркое",
+  "item.russiansdelight.bowl_of_okroshka": "Окрошка",
   "item.russiansdelight.dumpling": "Пельмешка",
 
   "block.russiansdelight.small_pot": "Маленькая кастрюля",
@@ -28,6 +34,7 @@
   "block.russiansdelight.shchi_pot": "Кастрюля щи",
   "block.russiansdelight.solyanka_pot": "Кастрюля солянки",
   "block.russiansdelight.rassolnik_pot": "Кастрюля рассольника",
+  "block.russiansdelight.okroshka_pot": "Кастрюля окрошки",
 
   "block.russiansdelight.pancakes_tray": "Поднос с блинами",
   "block.russiansdelight.fish_pie": "Рыбный пирог",
@@ -35,6 +42,11 @@
   "block.russiansdelight.berries_pies_tray": "Поднос с ватрушками из ягод",
 
   "block.russiansdelight.wild_cucumber": "Дикий огурец",
+  "block.russiansdelight.cucumbers": "Огуречная плеть",
+  "block.russiansdelight.budding_cucumber_crop": "Огуречная рассада",
+  "block.russiansdelight.buckwheat_crop": "Куст гречневой крупы",
+  "block.russiansdelight.budding_buckwheat_crop": "Рассада гречихи",
+  "block.russiansdelight.wild_buckwheat": "Дикая гречиха",
   "item.russiansdelight.cucumber_seeds": "Семена огурца",
   "block.russiansdelight.fermentation_barrel": "Бродильная бочка",
 
@@ -54,5 +66,6 @@
   "advancement.russiansdelight.master_chef.desc": "Свари все блюда русского застолья",
 
   "russiansdelight.jei.info.wild_cucumber": "Дикие огурцы можно найти в джунглях и предгорьях.",
+  "russiansdelight.jei.info.wild_buckwheat": "Дикую гречиху можно найти в горах.",
   "russiansdelight.jei.category.fermenting": "Брожение"
 }

@@ -18,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -40,10 +41,15 @@ public class JEIPlugin implements IModPlugin {
 			Component.translatable("russiansdelight.jei.info.wild_cucumber")
 		);
 
+		registration.addIngredientInfo(
+			List.of(new ItemStack(ModItems.WILD_BUCKWHEAT.get()), new ItemStack(ModItems.BUCKWHEAT.get())),
+			VanillaTypes.ITEM_STACK,
+			Component.translatable("russiansdelight.jei.info.wild_buckwheat")
+		);
+
 		Level level = Minecraft.getInstance().level;
 		if (level != null) {
-			List<FermentationRecipe> fermentingRecipes = level.getRecipeManager().getAllRecipesFor(
-					(net.minecraft.world.item.crafting.RecipeType<FermentationRecipe>) ModRecipeTypes.FERMENTING.get());
+			List<FermentationRecipe> fermentingRecipes = level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.FERMENTING.get());
 			registration.addRecipes(FERMENTING_TYPE, fermentingRecipes);
 		}
 	}
@@ -59,7 +65,7 @@ public class JEIPlugin implements IModPlugin {
 	}
 
 	@Override
-	public ResourceLocation getPluginUid() {
+	public @NotNull ResourceLocation getPluginUid() {
 		return ID;
 	}
 }

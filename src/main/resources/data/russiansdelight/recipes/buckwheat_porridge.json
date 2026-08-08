@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "cookingtime": 600,
+  "experience": 0.5,
+  "ingredients": [
+    {
+      "item": "russiansdelight:buckwheat"
+    },
+    {
+      "item": "russiansdelight:butter"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "farmersdelight:cabbage_leaf"
+    }
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "item": "russiansdelight:bowl_of_buckwheat_porridge"
+  }
+}
