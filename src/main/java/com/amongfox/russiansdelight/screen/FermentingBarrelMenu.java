@@ -1,5 +1,6 @@
 package com.amongfox.russiansdelight.screen;
 
+import com.amongfox.russiansdelight.RussiansDelight;
 import com.amongfox.russiansdelight.registry.ModItems;
 import com.amongfox.russiansdelight.registry.ModMenus;
 import com.mojang.datafixers.util.Pair;
@@ -62,7 +63,7 @@ public class FermentingBarrelMenu extends AbstractContainerMenu {
 
 			@Override
 			public @NotNull Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
-				return Pair.of(InventoryMenu.BLOCK_ATLAS, new ResourceLocation("farmersdelight", "item/empty_container_slot_bowl"));
+				return Pair.of(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(RussiansDelight.MOD_ID, "item/empty_container_slot_bottle"));
 			}
 		});
 		this.addSlot(new Slot(container, OUTPUT_SLOT, 129, 55) {
