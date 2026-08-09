@@ -4,8 +4,8 @@
 	"parent": "block/block",
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"particle": "farmersdelight:block/tray_top",
-		"tray_top": "farmersdelight:block/tray_top",
+		"particle": "russiansdelight:block/tray_top",
+		"tray_top": "russiansdelight:block/tray_top",
 		"tray_bottom": "farmersdelight:block/tray_bottom",
 		"cabbage_pie": "russiansdelight:block/cabbage_pie",
 		"cabbage_leaf": "farmersdelight:item/cabbage_leaf"
