@@ -1,12 +1,12 @@
 {
-	"format_version": "1.9.0",
+	"format_version": "1.21.11",
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"particle": "russiansdelight:block/tray_top",
 		"tray_top": "russiansdelight:block/tray_top",
-		"tray_bottom": "russiansdelight:block/tray_bottom"
+		"tray_bottom": "farmersdelight:block/tray_bottom"
 	},
 	"elements": [
 		{

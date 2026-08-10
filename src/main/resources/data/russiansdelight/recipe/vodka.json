@@ -1,0 +1,25 @@
+{
+  "type": "russiansdelight:fermenting",
+  "ingredients": [
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "item": "russiansdelight:vodka",
+    "count": 1
+  },
+  "container": {
+    "item": "russiansdelight:large_glass_bottle"
+  },
+  "duration": 4800
+}

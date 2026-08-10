@@ -6,6 +6,7 @@ import com.amongfox.russiansdelight.block.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
@@ -27,6 +28,7 @@ public enum ModBlocks {
 	SHCHI_POT("shchi_pot", ShchiPotBlock::new, true),
 	SOLYANKA_POT("solyanka_pot",SolyankaPotBlock::new, true),
 	RASSOLNIK_POT("rassolnik_pot", RassolnikPotBlock::new, true),
+	OKROSHKA_POT("okroshka_pot", OkroshkaPotBlock::new, true),
 
 	// Bakery
 	PANCAKES_TRAY("pancakes_tray", PancakesTrayBlock::new, true),
@@ -37,10 +39,19 @@ public enum ModBlocks {
 	// Crops
 	WILD_CUCUMBER("wild_cucumber", () -> new WildCucumberBlock(
 			MobEffects.HUNGER, 6,
-			Block.Properties.ofFullCopy(Blocks.TALL_GRASS).noCollission().instabreak().sound(SoundType.GRASS)
+			FabricBlockSettings.copyOf(Blocks.TALL_GRASS).noCollision().breakInstantly().sounds(SoundType.GRASS)
 	), true),
-	BUDDING_CUCUMBER_CROP("budding_cucumber_crop", () -> new BuddingCucumberBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)), true),
-	CUCUMBER_CROP("cucumbers", () -> new CucumberVineBlock(Block.Properties.ofFullCopy(Blocks.WHEAT)), true);
+	BUDDING_CUCUMBER_CROP("budding_cucumber_crop", () -> new BuddingCucumberBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+	CUCUMBER_CROP("cucumbers", () -> new CucumberVineBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+	WILD_BUCKWHEAT("wild_buckwheat", () -> new WildBuckwheatBlock(
+			MobEffects.HUNGER, 6,
+			FabricBlockSettings.copyOf(Blocks.TALL_GRASS).noCollision().breakInstantly().sounds(SoundType.GRASS)
+	), true),
+	BUDDING_BUCKWHEAT_CROP("budding_buckwheat_crop", () -> new BuddingBuckwheatBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+	BUCKWHEAT_CROP("buckwheat_crop", () -> new BuckwheatCropBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+
+	// Machines
+	FERMENTATION_BARREL("fermentation_barrel", FermentationBarrelBlock::new, false);
 
 	private final String pathName;
 	private final Supplier<Block> blockSupplier;
@@ -64,7 +75,7 @@ public enum ModBlocks {
 		if (!registered) {
 			this.block = Registry.register(
 					BuiltInRegistries.BLOCK,
-					ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName),
+					new ResourceLocation(RussiansDelight.MOD_ID, this.pathName),
 					this.blockSupplier.get()
 			);
 		}

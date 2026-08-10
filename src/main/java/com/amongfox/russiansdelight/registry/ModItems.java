@@ -20,6 +20,12 @@ public enum ModItems {
 	// Other
 	CUCUMBER("cucumber", () -> new Item(createFoodSettings(FoodItem.CUCUMBER))),
 	BUTTER("butter", () -> new Item(createFoodSettings(FoodItem.BUTTER))),
+	WOODEN_MUG("wooden_mug", () -> new Item(new Item.Properties().stacksTo(16))),
+
+	// Drinks
+	KVASS("kvass", () -> new KvassItem(createFoodSettings(FoodItem.KVASS).stacksTo(16))),
+	VODKA("vodka", () -> new VodkaItem(createFoodSettings(FoodItem.VODKA).stacksTo(1))),
+	LARGE_GLASS_BOTTLE("large_glass_bottle", () -> new Item(new Item.Properties())),
 
 	// Bakery
 	PANCAKES("pancakes", () -> new Item(createFoodSettings(FoodItem.PANCAKES)), false),
@@ -32,6 +38,7 @@ public enum ModItems {
 	SHCHI("bowl_of_shchi", () -> new Item(createFoodSettings(FoodItem.SHCHI).stacksTo(1))),
 	SOLYANKA("bowl_of_solyanka", () -> new Item(createFoodSettings(FoodItem.SOLYANKA).stacksTo(1))),
 	RASSOLNIK("bowl_of_rassolnik", () -> new Item(createFoodSettings(FoodItem.RASSOLNIK).stacksTo(1))),
+	OKROSHKA("bowl_of_okroshka", () -> new Item(createFoodSettings(FoodItem.OKROSHKA).stacksTo(1))),
 
 	// Main courses
 	ROAST("bowl_of_roast", () -> new Item(createFoodSettings(FoodItem.ROAST).stacksTo(1))),
@@ -40,6 +47,8 @@ public enum ModItems {
 	BREAD_AND_BUTTER("bread_and_butter", () -> new Item(createFoodSettings(FoodItem.BREAD_AND_BUTTER))),
 	SEMOLINA("semolina", () -> new Item(new Item.Properties())),
 	SEMOLINA_PORRIDGE("bowl_of_semolina_porridge", () -> new Item(createFoodSettings(FoodItem.SEMOLINA_PORRIDGE).stacksTo(1))),
+	BUCKWHEAT("buckwheat", () -> new Item(new Item.Properties())),
+	BUCKWHEAT_PORRIDGE("bowl_of_buckwheat_porridge", () -> new Item(createFoodSettings(FoodItem.BUCKWHEAT_PORRIDGE).stacksTo(1))),
 
 	// Blocks
 	SMALL_POT("small_pot", () -> new BlockItem(ModBlocks.SMALL_POT.get(), new Item.Properties())),
@@ -47,6 +56,7 @@ public enum ModItems {
 	SHCHI_POT("shchi_pot", () -> new PotBlockItem(ModBlocks.SHCHI_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
 	SOLYANKA_POT("solyanka_pot", () -> new PotBlockItem(ModBlocks.SOLYANKA_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
 	RASSOLNIK_POT("rassolnik_pot", () -> new PotBlockItem(ModBlocks.RASSOLNIK_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
+	OKROSHKA_POT("okroshka_pot", () -> new PotBlockItem(ModBlocks.OKROSHKA_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
 	PANCAKES_TRAY("pancakes_tray", () -> new BlockItem(ModBlocks.PANCAKES_TRAY.get(), new Item.Properties())),
 	FISH_PIE("fish_pie", () -> new BlockItem(ModBlocks.FISH_PIE.get(), new Item.Properties())),
 	CABBAGE_PIES_TRAY("cabbage_pies_tray", () -> new BlockItem(ModBlocks.CABBAGE_PIES_TRAY.get(), new Item.Properties())),
@@ -54,6 +64,8 @@ public enum ModItems {
 
 	// Crops
 	WILD_CUCUMBER("wild_cucumber", () -> new BlockItem(ModBlocks.WILD_CUCUMBER.get(), new Item.Properties())),
+	WILD_BUCKWHEAT("wild_buckwheat", () -> new BlockItem(ModBlocks.WILD_BUCKWHEAT.get(), new Item.Properties())),
+	BUCKWHEAT_SEEDS("buckwheat_seeds", () -> new ItemNameBlockItem(ModBlocks.BUDDING_BUCKWHEAT_CROP.get(), new Item.Properties())),
 	CUCUMBER_SEEDS("cucumber_seeds", () -> new ItemNameBlockItem(ModBlocks.BUDDING_CUCUMBER_CROP.get(), new Item.Properties())
 	{
 		@Override
@@ -61,7 +73,16 @@ public enum ModItems {
 			super.registerBlocks(blockToItemMap, item);
 			blockToItemMap.put(ModBlocks.CUCUMBER_CROP.get(), item);
 		}
-	});
+
+		@Override
+		public void removeFromBlockToItemMap(@NotNull Map<Block, Item> blockToItemMap, @NotNull Item itemIn) {
+			super.removeFromBlockToItemMap(blockToItemMap, itemIn);
+			blockToItemMap.remove(ModBlocks.CUCUMBER_CROP.get());
+		}
+	}),
+
+	// Machines
+	FERMENTATION_BARREL("fermentation_barrel", () -> new BlockItem(ModBlocks.FERMENTATION_BARREL.get(), new Item.Properties()));
 
 	private final String pathName;
 	private final Supplier<Item> itemSupplier;
@@ -95,7 +116,7 @@ public enum ModItems {
 		if (!registered) {
 			this.item = Registry.register(
 					BuiltInRegistries.ITEM,
-					ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName),
+					new ResourceLocation(RussiansDelight.MOD_ID, this.pathName),
 					this.itemSupplier.get()
 			);
 			this.registered = true;

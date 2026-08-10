@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "russiansdelight:wild_buckwheat"
+    }
+  ],
+  "result": [
+    {
+      "item": "russiansdelight:buckwheat_seeds"
+    },
+    {
+      "chance": 0.2,
+      "item": "russiansdelight:buckwheat"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  }
+}

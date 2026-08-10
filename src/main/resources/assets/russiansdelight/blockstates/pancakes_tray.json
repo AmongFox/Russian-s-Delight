@@ -1,21 +1,20 @@
 {
   "variants": {
     "facing=north,servings=0": {
-      "model": "russiansdelight:block/pancakes_tray_serving_0"
+      "model": "russiansdelight:block/empty_tray"
     },
     "facing=east,servings=0": {
-      "model": "russiansdelight:block/pancakes_tray_serving_0",
+      "model": "russiansdelight:block/empty_tray",
       "y": 90
     },
     "facing=south,servings=0": {
-      "model": "russiansdelight:block/pancakes_tray_serving_0",
+      "model": "russiansdelight:block/empty_tray",
       "y": 180
     },
     "facing=west,servings=0": {
-      "model": "russiansdelight:block/pancakes_tray_serving_0",
+      "model": "russiansdelight:block/empty_tray",
       "y": 270
     },
-
     "facing=north,servings=1": {
       "model": "russiansdelight:block/pancakes_tray_serving_1"
     },
@@ -31,7 +30,6 @@
       "model": "russiansdelight:block/pancakes_tray_serving_1",
       "y": 270
     },
-
     "facing=north,servings=2": {
       "model": "russiansdelight:block/pancakes_tray_serving_2"
     },
@@ -47,7 +45,6 @@
       "model": "russiansdelight:block/pancakes_tray_serving_2",
       "y": 270
     },
-
     "facing=north,servings=3": {
       "model": "russiansdelight:block/pancakes_tray_serving_3"
     },
@@ -63,7 +60,6 @@
       "model": "russiansdelight:block/pancakes_tray_serving_3",
       "y": 270
     },
-
     "facing=north,servings=4": {
       "model": "russiansdelight:block/pancakes_tray_serving_4"
     },
@@ -79,7 +75,6 @@
       "model": "russiansdelight:block/pancakes_tray_serving_4",
       "y": 270
     },
-
     "facing=north,servings=5": {
       "model": "russiansdelight:block/pancakes_tray_serving_5"
     },
@@ -95,7 +90,6 @@
       "model": "russiansdelight:block/pancakes_tray_serving_5",
       "y": 270
     },
-
     "facing=north,servings=6": {
       "model": "russiansdelight:block/pancakes_tray_serving_6"
     },

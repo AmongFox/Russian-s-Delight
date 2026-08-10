@@ -1,0 +1,25 @@
+{
+  "type": "russiansdelight:fermenting",
+  "ingredients": [
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "item": "russiansdelight:kvass",
+    "count": 1
+  },
+  "container": {
+    "item": "russiansdelight:wooden_mug"
+  },
+  "duration": 4800
+}

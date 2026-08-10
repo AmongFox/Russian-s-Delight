@@ -1,0 +1,16 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "result": [
+    {
+      "item": "russiansdelight:buckwheat"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  }
+}

@@ -1,3 +1,6 @@
 {
-  "parent": "russiansdelight:block/pancakes_tray"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "russiansdelight:item/bowl_of_pancakes"
+  }
 }
