@@ -36,7 +36,8 @@ public class BuddingBuckwheatBlock extends BuddingBushBlock implements Bonemeala
 		level.setBlockAndUpdate(pos, ModBlocks.BUCKWHEAT_CROP.get().defaultBlockState());
 	}
 
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+	@Override
+	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return true;
 	}
 

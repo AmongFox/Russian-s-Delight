@@ -38,7 +38,7 @@ public enum ModBlockEntities {
 		if (!registered) {
 			this.type = Registry.register(
 					BuiltInRegistries.BLOCK_ENTITY_TYPE,
-					new ResourceLocation(RussiansDelight.MOD_ID, this.pathName),
+					ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName),
 					this.typeSupplier.get()
 			);
 			this.registered = true;

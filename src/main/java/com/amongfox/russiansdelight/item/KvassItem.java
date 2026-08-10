@@ -2,11 +2,13 @@ package com.amongfox.russiansdelight.item;
 
 import com.amongfox.russiansdelight.registry.ModItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -41,7 +43,7 @@ public class KvassItem extends DrinkableItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
 		tooltip.add(Component.translatable("russiansdelight.tooltip.kvass").withStyle(ChatFormatting.GRAY));
 	}
 
@@ -49,15 +51,15 @@ public class KvassItem extends DrinkableItem {
 	public void affectConsumer(ItemStack stack, Level level, LivingEntity entity) {
 		Iterator<MobEffectInstance> iterator = entity.getActiveEffects().iterator();
 
-		List<MobEffect> curativeEffects = new ArrayList<>();
+		List<Holder<MobEffect>> curativeEffects = new ArrayList<>();
 		while (iterator.hasNext()) {
 			MobEffectInstance effect = iterator.next();
-			if (!effect.getEffect().isBeneficial()) {
+			if (!effect.getEffect().value().isBeneficial()) {
 				curativeEffects.add(effect.getEffect());
 			}
 		}
 
-		for (MobEffect effect : curativeEffects) {
+		for (Holder<MobEffect> effect : curativeEffects) {
 			entity.removeEffect(effect);
 		}
 

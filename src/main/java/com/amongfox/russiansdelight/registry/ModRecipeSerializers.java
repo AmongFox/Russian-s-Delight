@@ -10,7 +10,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import java.util.function.Supplier;
 
 public enum ModRecipeSerializers {
-	FERMENTING("fermenting", () -> new FermentationRecipeSerializer());
+	FERMENTING("fermenting", FermentationRecipeSerializer::new);
 
 	private final String pathName;
 	private final Supplier<RecipeSerializer<?>> serializerSupplier;
@@ -32,7 +32,7 @@ public enum ModRecipeSerializers {
 		if (!registered) {
 			this.serializer = Registry.register(
 					BuiltInRegistries.RECIPE_SERIALIZER,
-					new ResourceLocation(RussiansDelight.MOD_ID, this.pathName),
+					ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName),
 					this.serializerSupplier.get()
 			);
 			this.registered = true;

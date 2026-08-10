@@ -7,10 +7,13 @@
   ],
   "result": [
     {
-      "item": "russiansdelight:buckwheat"
+      "item": {
+        "id": "russiansdelight:buckwheat",
+        "count": 1
+      }
     }
   ],
   "tool": {
-    "tag": "c:tools/knives"
+    "tag": "c:tools/knife"
   }
 }

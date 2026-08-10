@@ -7,7 +7,7 @@ import com.amongfox.russiansdelight.registry.ModParticles;
 import com.amongfox.russiansdelight.screen.FermentingBarrelScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.minecraft.client.gui.screens.MenuScreens;
 
 public class RussiansDelightClient implements ClientModInitializer {
 	@Override
@@ -22,6 +22,6 @@ public class RussiansDelightClient implements ClientModInitializer {
 	}
 
 	private void registerScreens() {
-		ScreenRegistry.register(ModMenus.FERMENTING_BARREL.get(), FermentingBarrelScreen::new);
+		MenuScreens.register(ModMenus.FERMENTING_BARREL.get(), FermentingBarrelScreen::new);
 	}
 }

@@ -1,7 +1,10 @@
 package com.amongfox.russiansdelight.integration.jei;
 
+import com.amongfox.russiansdelight.recipe.FermentationRecipe;
 import com.amongfox.russiansdelight.registry.ModItems;
 import com.amongfox.russiansdelight.RussiansDelight;
+import com.amongfox.russiansdelight.registry.ModRecipeTypes;
+import com.amongfox.russiansdelight.screen.FermentingBarrelScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
@@ -14,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +25,7 @@ import java.util.List;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
-	private static final ResourceLocation ID = new ResourceLocation(RussiansDelight.MOD_ID, "jei_plugin");
+	private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, "jei_plugin");
 	public static final RecipeType<FermentationRecipe> FERMENTING_TYPE =
 			RecipeType.create(RussiansDelight.MOD_ID, "fermenting", FermentationRecipe.class);
 
@@ -46,7 +50,8 @@ public class JEIPlugin implements IModPlugin {
 
 		Level level = Minecraft.getInstance().level;
 		if (level != null) {
-			List<FermentationRecipe> fermentingRecipes = level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.FERMENTING.get());
+			List<RecipeHolder<FermentationRecipe>> recipeHolders = level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.FERMENTING.get());
+			List<FermentationRecipe> fermentingRecipes = recipeHolders.stream().map(RecipeHolder::value).toList();
 			registration.addRecipes(FERMENTING_TYPE, fermentingRecipes);
 		}
 	}

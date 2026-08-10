@@ -18,7 +18,7 @@ public enum ModSounds {
 
 	ModSounds(String pathName) {
 		this.pathName = pathName;
-		this.soundEventSupplier = () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(RussiansDelight.MOD_ID, this.pathName));
+		this.soundEventSupplier = () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName));
 	}
 
 	public static void registerAll() {
@@ -31,7 +31,7 @@ public enum ModSounds {
 		if (!registered) {
 			this.soundEvent = Registry.register(
 					BuiltInRegistries.SOUND_EVENT,
-					new ResourceLocation(RussiansDelight.MOD_ID, this.pathName),
+					ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName),
 					this.soundEventSupplier.get()
 			);
 			this.registered = true;

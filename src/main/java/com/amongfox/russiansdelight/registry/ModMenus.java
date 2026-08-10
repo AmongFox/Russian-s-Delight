@@ -12,7 +12,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import java.util.function.Supplier;
 
 public enum ModMenus {
-	FERMENTING_BARREL("fermenting_barrel", () -> new MenuType<FermentingBarrelMenu>(FermentingBarrelMenu::new, FeatureFlags.VANILLA_SET));
+	FERMENTING_BARREL("fermenting_barrel", () -> new MenuType<>(FermentingBarrelMenu::new, FeatureFlags.VANILLA_SET));
 
 	private final String pathName;
 	private final Supplier<MenuType<?>> menuSupplier;
@@ -34,7 +34,7 @@ public enum ModMenus {
 		if (!registered) {
 			this.menuType = Registry.register(
 					BuiltInRegistries.MENU,
-					new ResourceLocation(RussiansDelight.MOD_ID, this.pathName),
+					ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName),
 					this.menuSupplier.get()
 			);
 			this.registered = true;

@@ -63,7 +63,7 @@ public class FermentingBarrelMenu extends AbstractContainerMenu {
 
 			@Override
 			public @NotNull Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
-				return Pair.of(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(RussiansDelight.MOD_ID, "item/empty_container_slot_bottle"));
+				return Pair.of(InventoryMenu.BLOCK_ATLAS, ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, "item/empty_container_slot_bottle"));
 			}
 		});
 		this.addSlot(new Slot(container, OUTPUT_SLOT, 129, 55) {
