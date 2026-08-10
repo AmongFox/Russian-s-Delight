@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class FermentationCategory implements IRecipeCategory<FermentationRecipe> {
-	private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(RussiansDelight.MOD_ID, "textures/gui/fermentation_barrel_gui.png");
+	private static final ResourceLocation GUI_TEXTURE = ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, "textures/gui/fermentation_barrel_gui.png");
 	private static final int DEFAULT_DURATION = 240 * 20;
 
 	private final IDrawable background;
@@ -50,8 +50,13 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
 	}
 
 	@Override
-	public @NotNull IDrawable getBackground() {
-		return background;
+	public int getWidth() {
+		return background.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return background.getHeight();
 	}
 
 	@Override
@@ -79,6 +84,7 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
 
 	@Override
 	public void draw(@NotNull FermentationRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		background.draw(guiGraphics, 0, 0);
 		animatedScale.draw(guiGraphics, 60, 3);
 	}
 }

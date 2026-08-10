@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class FermentingBarrelScreen extends AbstractContainerScreen<FermentingBarrelMenu> {
-	private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(RussiansDelight.MOD_ID, "textures/gui/fermentation_barrel_gui.png");
+	private static final ResourceLocation GUI_TEXTURE = ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, "textures/gui/fermentation_barrel_gui.png");
 	private static final int SCALE_X = 64;
 	private static final int SCALE_Y = 24;
 	private static final int SCALE_WIDTH = 8;
@@ -25,7 +25,7 @@ public class FermentingBarrelScreen extends AbstractContainerScreen<FermentingBa
 
 	@Override
 	public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		this.renderBackground(guiGraphics);
+		this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
 		super.render(guiGraphics, mouseX, mouseY, partialTick);
 		this.renderTooltip(guiGraphics, mouseX, mouseY);
 	}

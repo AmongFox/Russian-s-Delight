@@ -2,6 +2,7 @@ package com.amongfox.russiansdelight.block;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public class WildBuckwheatBlock extends FlowerBlock implements BonemealableBlock {
 	protected static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
-	public WildBuckwheatBlock(MobEffect suspiciousStewEffect, int effectDuration, BlockBehaviour.Properties settings) {
+	public WildBuckwheatBlock(Holder<MobEffect> suspiciousStewEffect, int effectDuration, BlockBehaviour.Properties settings) {
 		super(suspiciousStewEffect, effectDuration, settings);
 		FlammableBlockRegistry.getDefaultInstance().add(this, 100, 60);
 	}
@@ -43,7 +44,7 @@ public class WildBuckwheatBlock extends FlowerBlock implements BonemealableBlock
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return true;
 	}
 

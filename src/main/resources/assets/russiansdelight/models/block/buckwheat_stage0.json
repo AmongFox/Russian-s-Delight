@@ -1,6 +1,6 @@
 {
   "render_type": "minecraft:cutout",
-  "parent": "farmersdelight:block/crop_cross",
+  "parent": "farmersdelight:block/template_crop_cross",
   "textures": {
     "cross": "russiansdelight:block/buckwheat_stage0"
   }

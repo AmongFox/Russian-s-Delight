@@ -8,14 +8,20 @@
   "result": [
     {
       "chance": 0.7,
-      "item": "russiansdelight:buckwheat_seeds"
+      "item": {
+        "id": "russiansdelight:buckwheat_seeds",
+        "count": 1
+      }
     },
     {
       "chance": 0.05,
-      "item": "minecraft:brown_dye"
+      "item": {
+        "id": "minecraft:brown_dye",
+        "count": 1
+      }
     }
   ],
   "tool": {
-    "tag": "c:tools/knives"
+    "tag": "c:tools/knife"
   }
 }

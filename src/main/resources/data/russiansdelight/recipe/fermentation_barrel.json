@@ -18,6 +18,7 @@
     "psp"
   ],
   "result": {
-    "item": "russiansdelight:fermentation_barrel"
+    "id": "russiansdelight:fermentation_barrel",
+    "count": 1
   }
 }

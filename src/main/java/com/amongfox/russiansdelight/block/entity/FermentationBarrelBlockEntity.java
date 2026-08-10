@@ -8,6 +8,7 @@ import com.amongfox.russiansdelight.registry.ModRecipeTypes;
 import com.amongfox.russiansdelight.registry.ModSounds;
 import com.amongfox.russiansdelight.screen.FermentingBarrelMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -22,6 +23,8 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
@@ -30,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEntity implements ContainerData {
+public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEntity implements ContainerData, RecipeInput {
 	private static final int CONTAINER_SIZE = 7;
 	private static final int INPUT_END = 4;
 	private static final int RESULT_SLOT = 4;
@@ -54,15 +57,16 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 			return;
 		}
 		RecipeType<FermentationRecipe> recipeType = ModRecipeTypes.FERMENTING.get();
-		Optional<FermentationRecipe> recipe = level.getRecipeManager().getRecipeFor(recipeType, blockEntity, level);
-		boolean fermenting = recipe.isPresent() && blockEntity.canCraft(recipe.get(), level);
+		Optional<RecipeHolder<FermentationRecipe>> recipeHolder = level.getRecipeManager().getRecipeFor(recipeType, blockEntity, level);
+		FermentationRecipe recipe = recipeHolder.map(RecipeHolder::value).orElse(null);
+		boolean fermenting = recipe != null && blockEntity.canCraft(recipe, level);
 		if (fermenting) {
 			if (blockEntity.brewTimeTotal == 0) {
-				blockEntity.brewTimeTotal = recipe.get().getDuration();
+				blockEntity.brewTimeTotal = recipe.getDuration();
 			}
 			blockEntity.brewTime++;
 			if (blockEntity.brewTime >= blockEntity.brewTimeTotal) {
-				blockEntity.craft(recipe.get(), level);
+				blockEntity.craft(recipe, level);
 			}
 		} else {
 			blockEntity.brewTime = 0;
@@ -159,7 +163,8 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 			return false;
 		}
 		RecipeType<FermentationRecipe> recipeType = ModRecipeTypes.FERMENTING.get();
-		for (FermentationRecipe recipe : this.level.getRecipeManager().getAllRecipesFor(recipeType)) {
+		for (RecipeHolder<FermentationRecipe> holder : this.level.getRecipeManager().getAllRecipesFor(recipeType)) {
+			FermentationRecipe recipe = holder.value();
 			if (ItemStack.isSameItem(recipe.getResultItem(this.level.registryAccess()), resultStack)) {
 				return recipe.getContainer().test(containerStack);
 			}
@@ -195,6 +200,11 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	@Override
 	public int getContainerSize() {
 		return CONTAINER_SIZE;
+	}
+
+	@Override
+	public int size() {
+		return getContainerSize();
 	}
 
 	@Override
@@ -242,21 +252,21 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 		if (!this.trySaveLootTable(tag)) {
-			ContainerHelper.saveAllItems(tag, this.items);
+			ContainerHelper.saveAllItems(tag, this.items, registries);
 		}
 		tag.putInt("BrewTime", this.brewTime);
 		tag.putInt("BrewTimeTotal", this.brewTimeTotal);
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag) {
-		super.load(tag);
+	public void loadAdditional(@NotNull CompoundTag tag, @NotNull HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 		this.items = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
 		if (!this.tryLoadLootTable(tag)) {
-			ContainerHelper.loadAllItems(tag, this.items);
+			ContainerHelper.loadAllItems(tag, this.items, registries);
 		}
 		this.brewTime = tag.getInt("BrewTime");
 		this.brewTimeTotal = tag.getInt("BrewTimeTotal");

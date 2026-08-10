@@ -1,13 +1,26 @@
 package com.amongfox.russiansdelight.registry;
 
 import com.amongfox.russiansdelight.RussiansDelight;
+import com.amongfox.russiansdelight.recipe.FermentationRecipe;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import java.util.function.Supplier;
 
 public enum ModRecipeTypes {
-	FERMENTING("fermenting", () -> RecipeType.register(RussiansDelight.MOD_ID + ":fermenting"));
+	FERMENTING("fermenting", () -> Registry.register(
+			BuiltInRegistries.RECIPE_TYPE,
+			ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, "fermenting"),
+			new RecipeType<FermentationRecipe>() {
+				@Override
+				public String toString() {
+					return RussiansDelight.MOD_ID + ":fermenting";
+				}
+			}
+	));
 
     private final Supplier<RecipeType<?>> typeSupplier;
 	private RecipeType<?> recipeType;

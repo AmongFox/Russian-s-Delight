@@ -2,7 +2,9 @@ package com.amongfox.russiansdelight.registry;
 
 import com.amongfox.russiansdelight.RussiansDelight;
 import com.amongfox.russiansdelight.item.FoodItem;
+import com.amongfox.russiansdelight.item.KvassItem;
 import com.amongfox.russiansdelight.item.PotBlockItem;
+import com.amongfox.russiansdelight.item.VodkaItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -73,12 +75,6 @@ public enum ModItems {
 			super.registerBlocks(blockToItemMap, item);
 			blockToItemMap.put(ModBlocks.CUCUMBER_CROP.get(), item);
 		}
-
-		@Override
-		public void removeFromBlockToItemMap(@NotNull Map<Block, Item> blockToItemMap, @NotNull Item itemIn) {
-			super.removeFromBlockToItemMap(blockToItemMap, itemIn);
-			blockToItemMap.remove(ModBlocks.CUCUMBER_CROP.get());
-		}
 	}),
 
 	// Machines
@@ -116,7 +112,7 @@ public enum ModItems {
 		if (!registered) {
 			this.item = Registry.register(
 					BuiltInRegistries.ITEM,
-					new ResourceLocation(RussiansDelight.MOD_ID, this.pathName),
+					ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName),
 					this.itemSupplier.get()
 			);
 			this.registered = true;

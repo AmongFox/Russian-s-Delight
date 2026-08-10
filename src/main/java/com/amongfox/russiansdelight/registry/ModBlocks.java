@@ -41,17 +41,17 @@ public enum ModBlocks {
 			MobEffects.HUNGER, 6,
 			FabricBlockSettings.copyOf(Blocks.TALL_GRASS).noCollision().breakInstantly().sounds(SoundType.GRASS)
 	), true),
-	BUDDING_CUCUMBER_CROP("budding_cucumber_crop", () -> new BuddingCucumberBlock(Block.Properties.copy(Blocks.WHEAT)), true),
-	CUCUMBER_CROP("cucumbers", () -> new CucumberVineBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+	BUDDING_CUCUMBER_CROP("budding_cucumber_crop", () -> new BuddingCucumberBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)), true),
+	CUCUMBER_CROP("cucumbers", () -> new CucumberVineBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)), true),
 	WILD_BUCKWHEAT("wild_buckwheat", () -> new WildBuckwheatBlock(
 			MobEffects.HUNGER, 6,
 			FabricBlockSettings.copyOf(Blocks.TALL_GRASS).noCollision().breakInstantly().sounds(SoundType.GRASS)
 	), true),
-	BUDDING_BUCKWHEAT_CROP("budding_buckwheat_crop", () -> new BuddingBuckwheatBlock(Block.Properties.copy(Blocks.WHEAT)), true),
-	BUCKWHEAT_CROP("buckwheat_crop", () -> new BuckwheatCropBlock(Block.Properties.copy(Blocks.WHEAT)), true),
+	BUDDING_BUCKWHEAT_CROP("budding_buckwheat_crop", () -> new BuddingBuckwheatBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)), true),
+	BUCKWHEAT_CROP("buckwheat_crop", () -> new BuckwheatCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)), true),
 
 	// Machines
-	FERMENTATION_BARREL("fermentation_barrel", FermentationBarrelBlock::new, false);
+	FERMENTATION_BARREL("fermentation_barrel", () -> new FermentationBarrelBlock(FabricBlockSettings.copyOf(Blocks.BARREL).noOcclusion()), false);
 
 	private final String pathName;
 	private final Supplier<Block> blockSupplier;
@@ -75,7 +75,7 @@ public enum ModBlocks {
 		if (!registered) {
 			this.block = Registry.register(
 					BuiltInRegistries.BLOCK,
-					new ResourceLocation(RussiansDelight.MOD_ID, this.pathName),
+					ResourceLocation.fromNamespaceAndPath(RussiansDelight.MOD_ID, this.pathName),
 					this.blockSupplier.get()
 			);
 		}

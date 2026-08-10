@@ -30,7 +30,7 @@ public enum FoodItem {
 
 	// Напитки
 	KVASS(3, 0.3F),
-	VODKA(2, 0.2F, false, false, true),
+	VODKA(2, 0.2F, false, true),
 
 	// ОСНОВНЫЕ БЛЮДА
 	ROAST(14, 0.8F),

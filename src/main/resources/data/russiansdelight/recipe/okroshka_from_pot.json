@@ -47,7 +47,8 @@
     }
   ],
   "result": {
-    "item": "russiansdelight:okroshka_pot"
+    "id": "russiansdelight:okroshka_pot",
+    "count": 1
   },
   "experience": 1.0,
   "cookingtime": 1200
