@@ -1,0 +1,27 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "russiansdelight:buckwheat"
+    }
+  ],
+  "result": [
+    {
+      "chance": 0.7,
+      "item": {
+        "id": "russiansdelight:buckwheat_seeds",
+        "count": 1
+      }
+    },
+    {
+      "chance": 0.05,
+      "item": {
+        "id": "minecraft:brown_dye",
+        "count": 1
+      }
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knife"
+  }
+}

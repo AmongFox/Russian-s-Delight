@@ -5,6 +5,6 @@
     { "type": "minecraft:in_square" },
     { "type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING" },
     { "type": "minecraft:biome" },
-    { "type": "farmersdelight:biome_tag", "tag": "minecraft:is_overworld" }
+    { "type": "farmersdelight:biome_tag", "tag": "russiansdelight:wild_cucumber_whitelist" }
   ]
 }

@@ -1,13 +1,22 @@
 {
   "itemgroup.russiansdelight.group": "Russian's Delight",
 
+  "subtitles.russiansdelight.fermentation_barrel_bubbles": "Barrel bubbling",
+
   "item.russiansdelight.cucumber": "Cucumber",
   "item.russiansdelight.butter": "Butter",
-  "item.russiansdelight.pancakes": "Pancakes",
-  "item.russiansdelight.piece_fish_pie": "Piece of Fish Pie",
+  "item.russiansdelight.wooden_mug": "Wooden Mug",
+  "item.russiansdelight.kvass": "Kvass",
+  "item.russiansdelight.vodka": "Vodka",
+  "russiansdelight.tooltip.kvass": "Cools and restores some health",
+  "russiansdelight.tooltip.vodka": "Inflicts serious injuries",
+  "item.russiansdelight.large_glass_bottle": "Large Glass Bottle",
   "item.russiansdelight.bread_and_butter": "Bread with Butter",
   "item.russiansdelight.semolina": "Semolina",
   "item.russiansdelight.bowl_of_semolina_porridge": "Semolina Porridge",
+  "item.russiansdelight.buckwheat": "Buckwheat",
+  "item.russiansdelight.bowl_of_buckwheat_porridge": "Buckwheat Porridge",
+  "item.russiansdelight.buckwheat_seeds": "Buckwheat Seeds",
   "item.russiansdelight.cabbage_pie": "Cabbage Pie",
   "item.russiansdelight.berry_pie": "Berry Pie",
 
@@ -17,6 +26,7 @@
   "item.russiansdelight.bowl_of_rassolnik": "Rassolnik",
   "item.russiansdelight.bowl_of_pelmeni": "Bowl of Pelmeni",
   "item.russiansdelight.bowl_of_roast": "Bowl of Roast",
+  "item.russiansdelight.bowl_of_okroshka": "Okroshka",
   "item.russiansdelight.dumpling": "Dumpling",
 
   "block.russiansdelight.small_pot": "Small Pot",
@@ -24,6 +34,7 @@
   "block.russiansdelight.shchi_pot": "Shchi Pot",
   "block.russiansdelight.solyanka_pot": "Solyanka Pot",
   "block.russiansdelight.rassolnik_pot": "Rassolnik Pot",
+  "block.russiansdelight.okroshka_pot": "Okroshka Pot",
 
   "block.russiansdelight.pancakes_tray": "Pancakes Tray",
   "block.russiansdelight.fish_pie": "Fish Pie",
@@ -31,7 +42,17 @@
   "block.russiansdelight.berries_pies_tray": "Berries Pies Tray",
 
   "block.russiansdelight.wild_cucumber": "Wild Cucumber",
+  "block.russiansdelight.cucumbers": "Cucumber Vine",
+  "block.russiansdelight.budding_cucumber_crop": "Budding Cucumber",
+  "block.russiansdelight.buckwheat_crop": "Buckwheat Crop",
+  "block.russiansdelight.budding_buckwheat_crop": "Budding Buckwheat",
+  "block.russiansdelight.wild_buckwheat": "Wild Buckwheat",
   "item.russiansdelight.cucumber_seeds": "Cucumber Seeds",
+  "block.russiansdelight.fermentation_barrel": "Fermentation Barrel",
+
+  "container.russiansdelight.fermentation_barrel": "Fermenting Barrel",
+
+  "russiansdelight.gui.fermentation.time_left": "Time left: %s s",
 
   "advancement.russiansdelight.root.title": "Russian's Delight",
   "advancement.russiansdelight.root.desc": "Welcome to the world of Russian cuisine!",
@@ -44,5 +65,7 @@
   "advancement.russiansdelight.master_chef.title": "Master Chef",
   "advancement.russiansdelight.master_chef.desc": "Cook all dishes of the Russian feast",
 
-  "russiansdelight.jei.info.wild_cucumber": "Wild cucumbers can be commonly found as a wild plant in jungles and mountain foothills."
+  "russiansdelight.jei.info.wild_cucumber": "Wild cucumbers can be commonly found as a wild plant in jungles and mountain foothills.",
+  "russiansdelight.jei.info.wild_buckwheat": "Wild buckwheat can be found in the mountains.",
+  "russiansdelight.jei.category.fermenting": "Fermenting"
 }

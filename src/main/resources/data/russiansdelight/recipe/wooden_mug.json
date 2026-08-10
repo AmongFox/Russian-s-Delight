@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "p": {
+      "tag": "minecraft:planks"
+    },
+    "s": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "pattern": [
+    "p p",
+    "p p",
+    "psp"
+  ],
+  "result": {
+    "id": "russiansdelight:wooden_mug",
+    "count": 1
+  }
+}

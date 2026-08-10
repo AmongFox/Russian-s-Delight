@@ -9,15 +9,14 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
-import java.util.function.Function;
+
+import java.util.function.Supplier;
 
 import static com.amongfox.russiansdelight.RussiansDelight.LOGGER;
 
@@ -28,8 +27,9 @@ public enum ModBlocks {
 	// Soups
 	BORSCHT_POT("borscht_pot", BorschtPotBlock::new, potProps("borscht_pot"), true),
 	SHCHI_POT("shchi_pot", ShchiPotBlock::new, potProps("shchi_pot"), true),
-	SOLYANKA_POT("solyanka_pot", SolyankaPotBlock::new, potProps("solyanka_pot"), true),
+	SOLYANKA_POT("solyanka_pot",SolyankaPotBlock::new, potProps("solyanka_pot"), true),
 	RASSOLNIK_POT("rassolnik_pot", RassolnikPotBlock::new, potProps("rassolnik_pot"), true),
+	OKROSHKA_POT("okroshka_pot", OkroshkaPotBlock::new, potProps("okroshka_pot"), true),
 
 	// Bakery
 	PANCAKES_TRAY("pancakes_tray", PancakesTrayBlock::new, trayProps("pancakes_tray"), true),
@@ -38,11 +38,19 @@ public enum ModBlocks {
 	BERRIES_PIES_TRAY("berries_pies_tray", BerriesPiesTrayBlock::new, trayProps("berries_pies_tray"), true),
 
 	// Crops
-	WILD_CUCUMBER("wild_cucumber", props -> new WildCucumberBlock(
+    WILD_CUCUMBER("wild_cucumber", props -> new WildCucumberBlock(
+            MobEffects.HUNGER, 6, props
+    ), Block.Properties.ofFullCopy(Blocks.TALL_GRASS).noCollission().instabreak().sound(SoundType.GRASS).setId(key("wild_cucumber")), true),
+    BUDDING_CUCUMBER_CROP("budding_cucumber_crop", BuddingCucumberBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("budding_cucumber_crop")), true),
+    CUCUMBER_CROP("cucumbers", CucumberVineBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("cucumbers")), true);
+    WILD_BUCKWHEAT("wild_buckwheat", props -> new WildBuckwheatBlock(
 			MobEffects.HUNGER, 6, props
 	), Block.Properties.ofFullCopy(Blocks.TALL_GRASS).noCollission().instabreak().sound(SoundType.GRASS).setId(key("wild_cucumber")), true),
-	BUDDING_CUCUMBER_CROP("budding_cucumber_crop", BuddingCucumberBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("budding_cucumber_crop")), true),
-	CUCUMBER_CROP("cucumbers", CucumberVineBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("cucumbers")), true);
+	BUDDING_BUCKWHEAT_CROP("budding_buckwheat_crop", () -> new BuddingBuckwheatBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)), true),
+	BUCKWHEAT_CROP("buckwheat_crop", () -> new BuckwheatCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)), true),
+
+	// Machines
+	FERMENTATION_BARREL("fermentation_barrel", () -> new FermentationBarrelBlock(FabricBlockSettings.copyOf(Blocks.BARREL).noOcclusion()), false);
 
 	private final String pathName;
 	private final Function<Block.Properties, Block> blockFactory;

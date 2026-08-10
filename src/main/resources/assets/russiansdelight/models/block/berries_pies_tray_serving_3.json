@@ -1,14 +1,14 @@
 {
-	"format_version": "1.9.0",
+	"format_version": "1.21.11",
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"particle": "russiansdelight:block/tray_top",
 		"tray_top": "russiansdelight:block/tray_top",
-		"tray_bottom": "russiansdelight:block/tray_bottom",
+		"tray_bottom": "farmersdelight:block/tray_bottom",
 		"berry_pie": "russiansdelight:block/berry_pie",
-		"sweet_berries": "russiansdelight:block/sweet_berries"
+		"sweet_berries": "item/sweet_berries"
 	},
 	"elements": [
 		{
@@ -275,6 +275,7 @@
 			}
 		},
 		{
+			"name": "sweet_berries",
 			"from": [10, 2.01, 2.4],
 			"to": [13, 2.01, 5.4],
 			"rotation": {"angle": 22.5, "axis": "y", "origin": [11.5, 2, 3.9]},
@@ -311,21 +312,21 @@
 			"color": 0,
 			"children": [
 				{
-					"name": "pie1",
+					"name": "pie_1",
 					"origin": [0, 0, 0],
 					"scope": 0,
 					"color": 0,
 					"children": [1, 2, 3, 4, 5, 6]
 				},
 				{
-					"name": "pie2",
+					"name": "pie_2",
 					"origin": [8, 8, 8],
 					"scope": 0,
 					"color": 0,
 					"children": [7, 8, 9, 10, 11, 12]
 				},
 				{
-					"name": "pie3",
+					"name": "pie_3",
 					"origin": [8, 8, 8],
 					"scope": 0,
 					"color": 0,
