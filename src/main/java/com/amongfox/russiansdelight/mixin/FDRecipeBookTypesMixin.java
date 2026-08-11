@@ -5,8 +5,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import vectorwing.farmersdelight.refabricated.FDRecipeBookTypes;
 
-@Mixin(targets = "vectorwing.farmersdelight.refabricated.FDRecipeBookTypes", remap = false)
+@Mixin(value = FDRecipeBookTypes.class, remap = false)
 public class FDRecipeBookTypesMixin {
 
     @WrapOperation(

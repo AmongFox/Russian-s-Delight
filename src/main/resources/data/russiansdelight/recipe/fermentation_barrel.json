@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "p": {
-      "tag": "minecraft:planks"
-    },
-    "s": {
-      "tag": "minecraft:wooden_slabs"
-    },
-    "b": {
-      "item": "minecraft:barrel"
-    }
+    "p": "#minecraft:planks",
+    "s": "#minecraft:wooden_slabs",
+    "b": "minecraft:barrel"
   },
   "pattern": [
     "sss",

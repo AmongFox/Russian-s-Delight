@@ -7,8 +7,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.amongfox.russiansdelight.RussiansDelight.LOGGER;
@@ -42,15 +45,15 @@ public enum ModBlocks {
             MobEffects.HUNGER, 6, props
     ), Block.Properties.ofFullCopy(Blocks.TALL_GRASS).noCollission().instabreak().sound(SoundType.GRASS).setId(key("wild_cucumber")), true),
     BUDDING_CUCUMBER_CROP("budding_cucumber_crop", BuddingCucumberBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("budding_cucumber_crop")), true),
-    CUCUMBER_CROP("cucumbers", CucumberVineBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("cucumbers")), true);
-    WILD_BUCKWHEAT("wild_buckwheat", props -> new WildBuckwheatBlock(
+    CUCUMBER_CROP("cucumbers", CucumberVineBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("cucumbers")), true),
+	WILD_BUCKWHEAT("wild_buckwheat", props -> new WildBuckwheatBlock(
 			MobEffects.HUNGER, 6, props
-	), Block.Properties.ofFullCopy(Blocks.TALL_GRASS).noCollission().instabreak().sound(SoundType.GRASS).setId(key("wild_cucumber")), true),
-	BUDDING_BUCKWHEAT_CROP("budding_buckwheat_crop", () -> new BuddingBuckwheatBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)), true),
-	BUCKWHEAT_CROP("buckwheat_crop", () -> new BuckwheatCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)), true),
+	), Block.Properties.ofFullCopy(Blocks.TALL_GRASS).noCollission().instabreak().sound(SoundType.GRASS).setId(key("wild_buckwheat")), true),
+	BUDDING_BUCKWHEAT_CROP("budding_buckwheat_crop", BuddingBuckwheatBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("budding_buckwheat_crop")), true),
+	BUCKWHEAT_CROP("buckwheat_crop", BuckwheatCropBlock::new, Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).setId(key("buckwheat_crop")), true),
 
 	// Machines
-	FERMENTATION_BARREL("fermentation_barrel", () -> new FermentationBarrelBlock(FabricBlockSettings.copyOf(Blocks.BARREL).noOcclusion()), false);
+	FERMENTATION_BARREL("fermentation_barrel", FermentationBarrelBlock::new, Block.Properties.ofFullCopy(Blocks.BARREL).noOcclusion().setId(key("fermentation_barrel")), false);
 
 	private final String pathName;
 	private final Function<Block.Properties, Block> blockFactory;

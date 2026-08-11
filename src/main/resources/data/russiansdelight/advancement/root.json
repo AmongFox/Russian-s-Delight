@@ -9,7 +9,7 @@
     "description": {
       "translate": "advancement.russiansdelight.root.desc"
     },
-    "background": "minecraft:textures/block/bricks.png",
+    "background": "minecraft:block/bricks",
     "frame": "task",
     "show_toast": false,
     "announce_to_chat": false,

@@ -5,18 +5,24 @@
   ],
   "result": [
     {
-      "id": "russiansdelight:cucumber_seeds",
-      "count": 1
+      "item": {
+        "id": "russiansdelight:cucumber_seeds",
+        "count": 1
+      }
     },
     {
       "chance": 0.2,
-      "id": "russiansdelight:cucumber",
-      "count": 1
+      "item": {
+        "id": "russiansdelight:cucumber",
+        "count": 1
+      }
     },
     {
       "chance": 0.05,
-      "id": "minecraft:yellow_dye",
-      "count": 1
+      "item": {
+        "id": "minecraft:yellow_dye",
+        "count": 1
+      }
     }
   ],
   "tool": "#c:tools/knife"

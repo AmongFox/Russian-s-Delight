@@ -7,18 +7,10 @@
   "cookingtime": 600,
   "experience": 0.5,
   "ingredients": [
-    {
-      "item": "russiansdelight:buckwheat"
-    },
-    {
-      "item": "russiansdelight:butter"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "farmersdelight:cabbage_leaf"
-    }
+    "russiansdelight:buckwheat",
+    "russiansdelight:butter",
+    "minecraft:sugar",
+    "farmersdelight:cabbage_leaf"
   ],
   "recipe_book_tab": "meals",
   "result": {

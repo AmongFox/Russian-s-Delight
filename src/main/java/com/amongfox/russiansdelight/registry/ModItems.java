@@ -24,12 +24,12 @@ public enum ModItems {
 	// Other
     CUCUMBER("cucumber", () -> new Item(createFoodSettings(FoodItem.CUCUMBER).setId(key("cucumber")))),
     BUTTER("butter", () -> new Item(createFoodSettings(FoodItem.BUTTER).setId(key("butter")))),
-	WOODEN_MUG("wooden_mug", () -> new Item(new Item.Properties().stacksTo(16))),
+	WOODEN_MUG("wooden_mug", () -> new Item(new Item.Properties().stacksTo(16).setId(key("wooden_mug")))),
 
 	// Drinks
-	KVASS("kvass", () -> new KvassItem(createFoodSettings(FoodItem.KVASS).stacksTo(16))),
-	VODKA("vodka", () -> new VodkaItem(createFoodSettings(FoodItem.VODKA).stacksTo(1))),
-	LARGE_GLASS_BOTTLE("large_glass_bottle", () -> new Item(new Item.Properties())),
+	KVASS("kvass", () -> new KvassItem(createFoodSettings(FoodItem.KVASS).stacksTo(16).setId(key("kvass")))),
+	VODKA("vodka", () -> new VodkaItem(createFoodSettings(FoodItem.VODKA).stacksTo(1).setId(key("vodka")))),
+	LARGE_GLASS_BOTTLE("large_glass_bottle", () -> new Item(new Item.Properties().setId(key("large_glass_bottle")))),
 
 	// Bakery
 	PANCAKES("pancakes", () -> new Item(createFoodSettings(FoodItem.PANCAKES).setId(key("pancakes"))), false),
@@ -42,7 +42,7 @@ public enum ModItems {
 	SHCHI("bowl_of_shchi", () -> new Item(createFoodSettings(FoodItem.SHCHI).stacksTo(1).setId(key("bowl_of_shchi")))),
 	SOLYANKA("bowl_of_solyanka", () -> new Item(createFoodSettings(FoodItem.SOLYANKA).stacksTo(1).setId(key("bowl_of_solyanka")))),
 	RASSOLNIK("bowl_of_rassolnik", () -> new Item(createFoodSettings(FoodItem.RASSOLNIK).stacksTo(1).setId(key("bowl_of_rassolnik")))),
-    OKROSHKA("bowl_of_okroshka", () -> new Item(createFoodSettings(FoodItem.OKROSHKA).stacksTo(1))),
+    OKROSHKA("bowl_of_okroshka", () -> new Item(createFoodSettings(FoodItem.OKROSHKA).stacksTo(1).setId(key("bowl_of_okroshka")))),
 
 	// Main courses
 	ROAST("bowl_of_roast", () -> new Item(createFoodSettings(FoodItem.ROAST).stacksTo(1).setId(key("bowl_of_roast")))),
@@ -51,28 +51,26 @@ public enum ModItems {
 	BREAD_AND_BUTTER("bread_and_butter", () -> new Item(createFoodSettings(FoodItem.BREAD_AND_BUTTER).setId(key("bread_and_butter")))),
 	SEMOLINA("semolina", () -> new Item(new Item.Properties().setId(key("semolina")))),
 	SEMOLINA_PORRIDGE("bowl_of_semolina_porridge", () -> new Item(createFoodSettings(FoodItem.SEMOLINA_PORRIDGE).stacksTo(1).setId(key("bowl_of_semolina_porridge")))),
-    BUCKWHEAT("buckwheat", () -> new Item(new Item.Properties())),
-    BUCKWHEAT_PORRIDGE("bowl_of_buckwheat_porridge", () -> new Item(createFoodSettings(FoodItem.BUCKWHEAT_PORRIDGE).stacksTo(1))),
+    BUCKWHEAT("buckwheat", () -> new Item(new Item.Properties().setId(key("buckwheat")))),
+    BUCKWHEAT_PORRIDGE("bowl_of_buckwheat_porridge", () -> new Item(createFoodSettings(FoodItem.BUCKWHEAT_PORRIDGE).stacksTo(1).setId(key("bowl_of_buckwheat_porridge")))),
 
 	// Blocks
-	SMALL_POT("small_pot", () -> new BlockItem(ModBlocks.SMALL_POT.get(), new Item.Properties().setId(key("small_pot")))),
-	BORSCHT_POT("borscht_pot", () -> new PotBlockItem(ModBlocks.BORSCHT_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().setId(key("borscht_pot")))),
-	SHCHI_POT("shchi_pot", () -> new PotBlockItem(ModBlocks.SHCHI_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().setId(key("shchi_pot")))),
-	SOLYANKA_POT("solyanka_pot", () -> new PotBlockItem(ModBlocks.SOLYANKA_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().setId(key("solyanka_pot")))),
-	RASSOLNIK_POT("rassolnik_pot", () -> new PotBlockItem(ModBlocks.RASSOLNIK_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().setId(key("rassolnik_pot")))),
-    OKROSHKA_POT("okroshka_pot", () -> new PotBlockItem(ModBlocks.OKROSHKA_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties())),
-    PANCAKES_TRAY("pancakes_tray", () -> new BlockItem(ModBlocks.PANCAKES_TRAY.get(), new Item.Properties().setId(key("pancakes_tray")))),
-	FISH_PIE("fish_pie", () -> new BlockItem(ModBlocks.FISH_PIE.get(), new Item.Properties().setId(key("fish_pie")))),
-	CABBAGE_PIES_TRAY("cabbage_pies_tray", () -> new BlockItem(ModBlocks.CABBAGE_PIES_TRAY.get(), new Item.Properties().setId(key("cabbage_pies_tray")))),
-	BERRIES_PIES_TRAY("berries_pies_tray", () -> new BlockItem(ModBlocks.BERRIES_PIES_TRAY.get(), new Item.Properties().setId(key("berries_pies_tray")))),
+	SMALL_POT("small_pot", () -> new BlockItem(ModBlocks.SMALL_POT.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("small_pot")))),
+	BORSCHT_POT("borscht_pot", () -> new PotBlockItem(ModBlocks.BORSCHT_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("borscht_pot")))),
+	SHCHI_POT("shchi_pot", () -> new PotBlockItem(ModBlocks.SHCHI_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("shchi_pot")))),
+	SOLYANKA_POT("solyanka_pot", () -> new PotBlockItem(ModBlocks.SOLYANKA_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("solyanka_pot")))),
+	RASSOLNIK_POT("rassolnik_pot", () -> new PotBlockItem(ModBlocks.RASSOLNIK_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("rassolnik_pot")))),
+    OKROSHKA_POT("okroshka_pot", () -> new PotBlockItem(ModBlocks.OKROSHKA_POT.get(), ModItems.SMALL_POT.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("okroshka_pot")))),
+    PANCAKES_TRAY("pancakes_tray", () -> new BlockItem(ModBlocks.PANCAKES_TRAY.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("pancakes_tray")))),
+	FISH_PIE("fish_pie", () -> new BlockItem(ModBlocks.FISH_PIE.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("fish_pie")))),
+	CABBAGE_PIES_TRAY("cabbage_pies_tray", () -> new BlockItem(ModBlocks.CABBAGE_PIES_TRAY.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("cabbage_pies_tray")))),
+	BERRIES_PIES_TRAY("berries_pies_tray", () -> new BlockItem(ModBlocks.BERRIES_PIES_TRAY.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("berries_pies_tray")))),
 
 	// Crops
-	WILD_CUCUMBER("wild_cucumber", () -> new BlockItem(ModBlocks.WILD_CUCUMBER.get(), new Item.Properties().setId(key("wild_cucumber")))),
+	WILD_CUCUMBER("wild_cucumber", () -> new BlockItem(ModBlocks.WILD_CUCUMBER.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("wild_cucumber")))),
+	WILD_BUCKWHEAT("wild_buckwheat", () -> new BlockItem(ModBlocks.WILD_BUCKWHEAT.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("wild_buckwheat")))),
+	BUCKWHEAT_SEEDS("buckwheat_seeds", () -> new BlockItem(ModBlocks.BUDDING_BUCKWHEAT_CROP.get(), new Item.Properties().setId(key("buckwheat_seeds")))),
 	CUCUMBER_SEEDS("cucumber_seeds", () -> new BlockItem(ModBlocks.BUDDING_CUCUMBER_CROP.get(), new Item.Properties().setId(key("cucumber_seeds")))
-	WILD_CUCUMBER("wild_cucumber", () -> new BlockItem(ModBlocks.WILD_CUCUMBER.get(), new Item.Properties())),
-	WILD_BUCKWHEAT("wild_buckwheat", () -> new BlockItem(ModBlocks.WILD_BUCKWHEAT.get(), new Item.Properties())),
-	BUCKWHEAT_SEEDS("buckwheat_seeds", () -> new ItemNameBlockItem(ModBlocks.BUDDING_BUCKWHEAT_CROP.get(), new Item.Properties())),
-	CUCUMBER_SEEDS("cucumber_seeds", () -> new ItemNameBlockItem(ModBlocks.BUDDING_CUCUMBER_CROP.get(), new Item.Properties())
 	{
 		@Override
 		public void registerBlocks(@NotNull Map<Block, Item> blockToItemMap, @NotNull Item item) {
@@ -82,7 +80,7 @@ public enum ModItems {
 	}),
 
 	// Machines
-	FERMENTATION_BARREL("fermentation_barrel", () -> new BlockItem(ModBlocks.FERMENTATION_BARREL.get(), new Item.Properties()));
+	FERMENTATION_BARREL("fermentation_barrel", () -> new BlockItem(ModBlocks.FERMENTATION_BARREL.get(), new Item.Properties().useBlockDescriptionPrefix().setId(key("fermentation_barrel"))));
 
 	private final String pathName;
 	private final Supplier<Item> itemSupplier;

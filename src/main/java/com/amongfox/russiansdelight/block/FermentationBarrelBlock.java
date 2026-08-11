@@ -8,7 +8,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FermentationBarrelBlock extends BaseEntityBlock {
 	public static final MapCodec<FermentationBarrelBlock> CODEC = simpleCodec(FermentationBarrelBlock::new);
-	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 	public static final BooleanProperty FERMENTING = BooleanProperty.create("fermenting");
 	protected static final VoxelShape SHAPE = Block.box(2.0, 1.0, 2.0, 14.0, 13.0, 14.0);
@@ -64,19 +64,7 @@ public class FermentationBarrelBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
-		if (!state.is(newState.getBlock())) {
-			BlockEntity blockEntity = world.getBlockEntity(pos);
-			if (blockEntity instanceof FermentationBarrelBlockEntity) {
-				Containers.dropContents(world, pos, (Container) blockEntity);
-				world.updateNeighbourForOutputSignal(pos, state.getBlock());
-			}
-			super.onRemove(state, world, pos, newState, moved);
-		}
-	}
-
-	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, Orientation orientation, boolean isMoving) {
 		if (!world.isClientSide) {
 			setOpen(world, pos, state, world.hasNeighborSignal(pos));
 		}

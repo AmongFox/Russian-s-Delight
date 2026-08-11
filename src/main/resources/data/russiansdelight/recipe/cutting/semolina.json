@@ -5,8 +5,10 @@
   ],
   "result": [
     {
-      "id": "russiansdelight:semolina",
-      "count": 1
+      "item": {
+        "id": "russiansdelight:semolina",
+        "count": 1
+      }
     }
   ],
   "tool": "#c:tools/knife"

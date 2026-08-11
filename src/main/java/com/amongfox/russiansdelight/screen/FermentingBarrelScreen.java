@@ -3,6 +3,7 @@ package com.amongfox.russiansdelight.screen;
 import com.amongfox.russiansdelight.RussiansDelight;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -34,18 +35,21 @@ public class FermentingBarrelScreen extends AbstractContainerScreen<FermentingBa
 	protected void renderBg(@NotNull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
 		int x = this.leftPos;
 		int y = this.topPos;
-		guiGraphics.blit(GUI_TEXTURE, x, y, 0, 0, this.imageWidth, this.imageHeight);
+		guiGraphics.blit(RenderType::guiTextured, GUI_TEXTURE, x, y, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 
 		int fillHeight = Math.round(this.menu.getProgress() * SCALE_HEIGHT);
 		if (fillHeight > 0) {
 			guiGraphics.blit(
+					RenderType::guiTextured,
 					GUI_TEXTURE,
 					x + SCALE_X,
 					y + SCALE_Y + SCALE_HEIGHT - fillHeight,
 					FILLED_SCALE_X,
 					FILLED_SCALE_Y + SCALE_HEIGHT - fillHeight,
 					SCALE_WIDTH,
-					fillHeight
+					fillHeight,
+					256,
+					256
 			);
 		}
 	}

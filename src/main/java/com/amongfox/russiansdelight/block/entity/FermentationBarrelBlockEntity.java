@@ -27,6 +27,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -57,7 +58,7 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 			return;
 		}
 		RecipeType<FermentationRecipe> recipeType = ModRecipeTypes.FERMENTING.get();
-		Optional<RecipeHolder<FermentationRecipe>> recipeHolder = level.getRecipeManager().getRecipeFor(recipeType, blockEntity, level);
+		Optional<RecipeHolder<FermentationRecipe>> recipeHolder = ((ServerLevel) level).recipeAccess().getRecipeFor(recipeType, blockEntity, level);
 		FermentationRecipe recipe = recipeHolder.map(RecipeHolder::value).orElse(null);
 		boolean fermenting = recipe != null && blockEntity.canCraft(recipe, level);
 		if (fermenting) {
@@ -159,12 +160,15 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 	}
 
 	private boolean containerMatches(ItemStack resultStack, ItemStack containerStack) {
-		if (this.level == null) {
+		if (!(this.level instanceof ServerLevel serverLevel)) {
 			return false;
 		}
 		RecipeType<FermentationRecipe> recipeType = ModRecipeTypes.FERMENTING.get();
-		for (RecipeHolder<FermentationRecipe> holder : this.level.getRecipeManager().getAllRecipesFor(recipeType)) {
-			FermentationRecipe recipe = holder.value();
+		for (RecipeHolder<?> holder : serverLevel.recipeAccess().getRecipes()) {
+			if (holder.value().getType() != recipeType) {
+				continue;
+			}
+			FermentationRecipe recipe = (FermentationRecipe) holder.value();
 			if (ItemStack.isSameItem(recipe.getResultItem(this.level.registryAccess()), resultStack)) {
 				return recipe.getContainer().test(containerStack);
 			}
@@ -268,7 +272,7 @@ public class FermentationBarrelBlockEntity extends RandomizableContainerBlockEnt
 		if (!this.tryLoadLootTable(tag)) {
 			ContainerHelper.loadAllItems(tag, this.items, registries);
 		}
-		this.brewTime = tag.getInt("BrewTime");
-		this.brewTimeTotal = tag.getInt("BrewTimeTotal");
+		this.brewTime = tag.getIntOr("BrewTime", 0);
+		this.brewTimeTotal = tag.getIntOr("BrewTimeTotal", 0);
 	}
 }

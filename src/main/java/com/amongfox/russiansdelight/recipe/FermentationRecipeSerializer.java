@@ -37,7 +37,9 @@ public class FermentationRecipeSerializer implements RecipeSerializer<Fermentati
 	);
 
 	private static NonNullList<Ingredient> toIngredients(java.util.List<Ingredient> ingredients) {
-		return NonNullList.of(Ingredient.EMPTY, ingredients.toArray(Ingredient[]::new));
+		NonNullList<Ingredient> list = NonNullList.create();
+		list.addAll(ingredients);
+		return list;
 	}
 
 	private static FermentationRecipe create(java.util.List<Ingredient> ingredients, ItemStack result, int duration, Ingredient container) {

@@ -6,7 +6,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -56,28 +59,36 @@ public class FermentationRecipe implements Recipe<RecipeInput> {
 		return output.copy();
 	}
 
-	@Override
 	public boolean canCraftInDimensions(int width, int height) {
 		return true;
 	}
 
-	@Override
 	public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider registryAccess) {
 		return output.copy();
 	}
 
-	@Override
 	public @NotNull NonNullList<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public @NotNull RecipeSerializer<?> getSerializer() {
-		return ModRecipeSerializers.FERMENTING.get();
+	public @NotNull RecipeSerializer<FermentationRecipe> getSerializer() {
+		return (RecipeSerializer<FermentationRecipe>) ModRecipeSerializers.FERMENTING.get();
 	}
 
 	@Override
-	public @NotNull RecipeType<?> getType() {
+	public @NotNull RecipeType<FermentationRecipe> getType() {
 		return ModRecipeTypes.FERMENTING.get();
+	}
+
+	@Override
+	public @NotNull PlacementInfo placementInfo() {
+		return PlacementInfo.create(ingredients);
+	}
+
+	@Override
+	public @NotNull RecipeBookCategory recipeBookCategory() {
+		return RecipeBookCategories.FURNACE_FOOD;
 	}
 }

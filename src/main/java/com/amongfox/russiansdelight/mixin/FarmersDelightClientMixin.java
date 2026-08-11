@@ -5,8 +5,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.gui.screens.recipebook.SearchRecipeBookCategory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import vectorwing.farmersdelight.client.FarmersDelightClient;
 
-@Mixin(targets = "vectorwing.farmersdelight.client.FarmersDelightClient", remap = false)
+@Mixin(value = FarmersDelightClient.class, remap = false)
 public class FarmersDelightClientMixin {
 
     @WrapOperation(

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "russiansdelight:small_pot",
+    "russiansdelight:borscht_pot",
+    "russiansdelight:shchi_pot",
+    "russiansdelight:solyanka_pot",
+    "russiansdelight:rassolnik_pot"
+  ]
+}

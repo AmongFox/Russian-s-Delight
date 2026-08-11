@@ -8,24 +8,25 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import vectorwing.farmersdelight.common.item.DrinkableItem;
+import vectorwing.farmersdelight.common.item.ConsumableItem;
 
 import com.amongfox.russiansdelight.registry.ModItems;
 
-import java.util.List;
+import java.util.function.Consumer;
 
-public class VodkaItem extends DrinkableItem {
+public class VodkaItem extends ConsumableItem {
 	public VodkaItem(Properties properties) {
 		super(properties, false, true);
 	}
 
 	@Override
 	public void affectConsumer(ItemStack stack, Level level, LivingEntity entity) {
-		entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 1));
-		entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, 0));
-		entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 600, 0));
+		entity.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 600, 1));
+		entity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 600, 0));
+		entity.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 600, 0));
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class VodkaItem extends DrinkableItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		tooltip.add(Component.translatable("russiansdelight.tooltip.vodka").withStyle(ChatFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag isAdvanced) {
+		tooltip.accept(Component.translatable("russiansdelight.tooltip.vodka").withStyle(ChatFormatting.GRAY));
 	}
 }

@@ -11,15 +11,17 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import vectorwing.farmersdelight.common.item.DrinkableItem;
+import vectorwing.farmersdelight.common.item.ConsumableItem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class KvassItem extends DrinkableItem {
+public class KvassItem extends ConsumableItem {
 	public KvassItem(Properties properties) {
 		super(properties, false, true);
 	}
@@ -43,8 +45,8 @@ public class KvassItem extends DrinkableItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
-		tooltip.add(Component.translatable("russiansdelight.tooltip.kvass").withStyle(ChatFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag isAdvanced) {
+		tooltip.accept(Component.translatable("russiansdelight.tooltip.kvass").withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override
